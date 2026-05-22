@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>وِرد</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ── THEMES ── */
+:root{
+  --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a25;--bg4:#22222f;
+  --ac:#c8a96e;--ac2:#e8c98e;--tx:#f0ebe0;--tx2:#a09880;--tx3:#6a6455;
+  --gr:#4a9e6a;--bl:#4a7ec4;--rd:#c45a4a;
+  --bd:rgba(200,169,110,0.15);--bd2:rgba(200,169,110,0.3);
+  --fn:'IBM Plex Sans Arabic',sans-serif;--mn:'Space Mono',monospace;
+  --r:12px;--r2:20px;
+}
+/* dark themes */
+.t-amber{--ac:#c8a96e;--ac2:#e8c98e;--bd:rgba(200,169,110,0.15);--bd2:rgba(200,169,110,0.3)}
+.t-emerald{--ac:#4a9e6a;--ac2:#6abe8a;--bd:rgba(74,158,106,0.2);--bd2:rgba(74,158,106,0.35)}
+.t-sapphire{--ac:#4a7ec4;--ac2:#6a9ee4;--bd:rgba(74,126,196,0.2);--bd2:rgba(74,126,196,0.35)}
+.t-rose{--ac:#c45a7a;--ac2:#e47a9a;--bd:rgba(196,90,122,0.2);--bd2:rgba(196,90,122,0.35)}
+.t-violet{--ac:#8a5ac4;--ac2:#aa7ae4;--bd:rgba(138,90,196,0.2);--bd2:rgba(138,90,196,0.35)}
+/* light themes */
+.light{--bg:#f5f0e8;--bg2:#ede8de;--bg3:#e2dcd0;--bg4:#d4cec0;--tx:#2a2420;--tx2:#6a5a40;--tx3:#9a8a70}
+.light.t-amber{--ac:#8a6a30;--ac2:#6a4a10;--bd:rgba(138,106,48,0.2);--bd2:rgba(138,106,48,0.4)}
+.light.t-emerald{--ac:#2a7a4a;--ac2:#1a5a3a;--bd:rgba(42,122,74,0.2);--bd2:rgba(42,122,74,0.4)}
+.light.t-sapphire{--ac:#2a5ea4;--ac2:#1a4e84;--bd:rgba(42,94,164,0.2);--bd2:rgba(42,94,164,0.4)}
+.light.t-rose{--ac:#a43a5a;--ac2:#842a4a;--bd:rgba(164,58,90,0.2);--bd2:rgba(164,58,90,0.4)}
+.light.t-violet{--ac:#6a3aa4;--ac2:#5a2a84;--bd:rgba(106,58,164,0.2);--bd2:rgba(106,58,164,0.4)}
+
+body{font-family:var(--fn);background:var(--bg);color:var(--tx);min-height:100vh;transition:background .3s,color .3s;overflow-x:hidden}
+.app{display:flex;flex-direction:column;min-height:100vh;max-width:920px;margin:0 auto;padding:0 22px}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd)}
+.logo{font-size:20px;font-weight:700;color:var(--ac);letter-spacing:2px}
+.ntabs{display:flex;gap:3px;background:var(--bg3);border-radius:50px;padding:4px;border:1px solid var(--bd)}
+.ntab{padding:7px 15px;border-radius:50px;border:none;background:transparent;color:var(--tx2);font-family:var(--fn);font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.ntab.active{background:var(--ac);color:#0a0a0f;font-weight:600}
+.ntab:hover:not(.active){color:var(--tx);background:var(--bg4)}
+.ntab svg{width:15px;height:15px;flex-shrink:0}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--tx3);transition:background .3s;cursor:help}
+.sync-dot.ok{background:var(--gr)}.sync-dot.err{background:var(--rd)}.sync-dot.busy{background:var(--ac);animation:blink .8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.tbtn{background:var(--bg3);border:1px solid var(--bd);color:var(--tx2);width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.tbtn:hover{border-color:var(--bd2);color:var(--ac)}
+.tbtn svg{width:17px;height:17px}
+
+.page{display:none;flex-direction:column;flex:1;padding:26px 0}
+.page.active{display:flex;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TIMER ── */
+.tl{display:grid;grid-template-columns:1fr 284px;gap:26px;align-items:start}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.pbadge{padding:4px 13px;border-radius:50px;font-size:11px;font-weight:600;letter-spacing:1px;background:var(--bg3);border:1px solid var(--bd);color:var(--ac)}
+.pname{font-size:20px;font-weight:600;color:var(--tx)}
+.ppbar{width:100%;height:3px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-bottom:22px}
+.ppfill{height:100%;background:var(--ac);border-radius:4px;transition:width .5s}
+
+/* ring */
+.cw{display:flex;flex-direction:column;align-items:center;margin-bottom:20px}
+.rc{position:relative;width:220px;height:220px;cursor:pointer;user-select:none}
+.rsvg{width:220px;height:220px;transform:rotate(-90deg)}
+.rtrk{fill:none;stroke:var(--bg3);stroke-width:10}
+.rprg{fill:none;stroke:var(--ac);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.rprg.brk{stroke:var(--bl)}
+.rcenter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;pointer-events:none}
+.ctime{font-family:var(--mn);font-size:42px;font-weight:700;color:var(--tx);line-height:1;letter-spacing:-2px}
+.clbl{font-size:10px;color:var(--tx3);letter-spacing:2px;margin-top:2px}
+.cbadge{padding:3px 10px;border-radius:50px;font-size:10px;font-weight:600;letter-spacing:1px;margin-top:3px}
+.ctr{background:rgba(74,158,106,.15);color:var(--gr);border:1px solid rgba(74,158,106,.3)}
+.ctm{background:rgba(74,126,196,.15);color:var(--bl);border:1px solid rgba(74,126,196,.3)}
+.ctb{background:rgba(200,169,110,.1);color:var(--ac);border:1px solid var(--bd)}
+.rov{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:55px;height:55px;border-radius:50%;background:rgba(200,169,110,.07);border:1.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+.rc:hover .rov{opacity:1}
+.rov svg{width:22px;height:22px;color:var(--ac)}
+
+.ctrlrow{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:16px}
+.cside{background:var(--bg3);border:1px solid var(--bd);color:var(--tx2);width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cside:hover{border-color:var(--bd2);color:var(--tx)}
+.cside:active{transform:scale(.95)}
+.cside svg{width:19px;height:19px}
+.cpbtn{width:58px;height:58px;border-radius:50%;background:var(--ac);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#0a0a0f;transition:all .2s}
+.cpbtn:hover{background:var(--ac2)}.cpbtn:active{transform:scale(.95)}
+.cpbtn svg{width:25px;height:25px}
+
+/* dots */
+.sdots{display:flex;gap:5px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.sd{width:25px;height:25px;border-radius:50%;border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--tx3);transition:all .3s;cursor:pointer}
+.sd:hover{border-color:var(--bd2)}
+.sd.dr{background:rgba(74,158,106,.2);border-color:rgba(74,158,106,.5);color:var(--gr)}
+.sd.dm{background:rgba(74,126,196,.2);border-color:rgba(74,126,196,.5);color:var(--bl)}
+.sd.act{background:var(--ac);border-color:var(--ac);color:#0a0a0f}
+.sd svg{width:10px;height:10px}
+
+.pswitch{display:flex;align-items:center;gap:8px;padding:10px 13px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--bd);font-size:13px;color:var(--tx2)}
+.pswitch svg{color:var(--ac);width:14px;height:14px;flex-shrink:0}
+.pswitch strong{color:var(--tx)}
+
+/* sidebar */
+.sc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;margin-bottom:12px}
+.stitle{font-size:10px;letter-spacing:2px;color:var(--tx3);text-transform:uppercase;margin-bottom:11px}
+.pi2{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r);cursor:pointer;transition:all .2s;margin-bottom:3px;border:1px solid transparent}
+.pi2:hover{background:var(--bg3)}.pi2.cp{background:rgba(200,169,110,.08);border-color:var(--bd)}
+.pdot{width:7px;height:7px;border-radius:50%;background:var(--tx3);flex-shrink:0}.pdot.act{background:var(--ac)}
+.pin{font-size:13px;color:var(--tx2);flex:1}.pi2.cp .pin{color:var(--tx)}
+.pmeta{font-size:11px;color:var(--tx3)}
+.pkg-prog-mini{height:2px;background:var(--bg4);border-radius:2px;margin-top:4px;overflow:hidden}
+.pkg-prog-mini-fill{height:100%;background:var(--ac);border-radius:2px;transition:width .3s}
+
+.ts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sm{background:var(--bg3);border-radius:var(--r);padding:10px;text-align:center}
+.smv{font-family:var(--mn);font-size:20px;font-weight:700;color:var(--ac)}
+.sml{font-size:10px;color:var(--tx3);margin-top:2px;letter-spacing:1px}
+
+/* ── STATS ── */
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
+.scard{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;text-align:center}
+.sv2{font-family:var(--mn);font-size:28px;font-weight:700;color:var(--ac);margin-bottom:3px}
+.sl{font-size:11px;color:var(--tx3);letter-spacing:1px}
+.cc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:20px;margin-bottom:16px}
+.ct{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:16px;display:flex;align-items:center;gap:7px}
+.ct svg{color:var(--ac);width:15px;height:15px}
+.bc{display:flex;align-items:flex-end;gap:6px;height:120px;padding-bottom:4px}
+.bcol{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.bst{display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:flex-end;gap:1px}
+.bf{width:100%;border-radius:3px 3px 0 0;min-height:2px;transition:height .6s ease}
+.bf.rb{background:var(--gr);opacity:.85}.bf.mb{background:var(--bl);opacity:.85}
+.bll{font-size:10px;color:var(--tx3)}
+.chart-legend{display:flex;gap:16px;margin-top:10px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--tx3)}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+
+/* log */
+.slog{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:20px}
+.lh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.lt{font-size:14px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:7px}
+.lt svg{color:var(--ac);width:15px;height:15px}
+.la{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.fb{padding:5px 11px;border-radius:50px;border:1px solid var(--bd);background:transparent;color:var(--tx3);font-family:var(--fn);font-size:11px;cursor:pointer;transition:all .2s}
+.fb.active{background:var(--ac);border-color:var(--ac);color:#0a0a0f;font-weight:600}
+.view-toggle{display:flex;gap:3px;background:var(--bg3);border-radius:50px;padding:3px;border:1px solid var(--bd)}
+.vt{padding:4px 12px;border-radius:50px;border:none;background:transparent;color:var(--tx3);font-family:var(--fn);font-size:11px;cursor:pointer;transition:all .2s}
+.vt.active{background:var(--ac);color:#0a0a0f;font-weight:600}
+.eb{padding:6px 13px;border-radius:50px;border:1px solid var(--bd2);background:transparent;color:var(--ac);font-family:var(--fn);font-size:12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;font-weight:500}
+.eb:hover{background:rgba(200,169,110,.1)}.eb svg{width:14px;height:14px}
+.ltbl{width:100%;border-collapse:collapse;table-layout:fixed}
+.ltbl th{text-align:right;font-size:11px;color:var(--tx3);letter-spacing:1px;padding:0 8px 9px;font-weight:500;border-bottom:1px solid var(--bd)}
+.ltbl td{padding:8px;font-size:13px;color:var(--tx2);border-bottom:1px solid rgba(200,169,110,.06);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ltbl tr:last-child td{border-bottom:none}.ltbl tr:hover td{color:var(--tx);background:var(--bg3)}
+.tp{display:inline-block;padding:2px 8px;border-radius:50px;font-size:10px;font-weight:600}
+.el{text-align:center;padding:34px;color:var(--tx3);font-size:14px}
+
+/* pkg log view */
+.pkg-log-card{background:var(--bg3);border-radius:var(--r);padding:14px;margin-bottom:10px;border:1px solid var(--bd)}
+.pkg-log-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.pkg-log-name{font-size:14px;font-weight:600;color:var(--tx)}
+.pkg-log-stats{display:flex;gap:10px}
+.pkg-log-stat{font-size:11px;color:var(--tx3);display:flex;align-items:center;gap:4px}
+.pkg-log-sessions{display:flex;flex-wrap:wrap;gap:4px}
+.pls{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:600}
+.pls.r{background:rgba(74,158,106,.2);color:var(--gr)}.pls.m{background:rgba(74,126,196,.2);color:var(--bl)}
+
+/* ── SETTINGS ── */
+.cfg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cfgc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:20px}
+.cfgt{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:14px;display:flex;align-items:center;gap:7px;padding-bottom:11px;border-bottom:1px solid var(--bd)}
+.cfgt svg{color:var(--ac);width:15px;height:15px}
+.fr{margin-bottom:12px}.fl{font-size:12px;color:var(--tx3);letter-spacing:.5px;margin-bottom:5px}
+.fi{width:100%;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:8px 12px;color:var(--tx);font-family:var(--fn);font-size:13px;outline:none;transition:border-color .2s}
+.fi:focus{border-color:var(--bd2)}.fi option{background:var(--bg3)}
+.pkgmgr{grid-column:1/-1}
+.pe{background:var(--bg3);border-radius:var(--r);padding:13px;margin-bottom:9px;border:1px solid var(--bd)}
+.peh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.ib{background:transparent;border:1px solid var(--bd);color:var(--tx3);width:28px;height:28px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.ib:hover{border-color:var(--bd2);color:var(--tx)}.ib.d:hover{border-color:rgba(196,90,74,.5);color:var(--rd)}
+.ib svg{width:14px;height:14px}
+.sr2{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px}
+.chip{padding:3px 9px;border-radius:50px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid;display:flex;align-items:center;gap:3px}
+.rch{background:rgba(74,158,106,.12);border-color:rgba(74,158,106,.3);color:var(--gr)}
+.mch{background:rgba(74,126,196,.12);border-color:rgba(74,126,196,.3);color:var(--bl)}
+.cx{opacity:.5;font-size:12px}
+.asr{display:flex;gap:5px;margin-top:6px}
+.bsm{padding:6px 11px;border-radius:8px;border:1px solid var(--bd);background:transparent;color:var(--tx2);font-family:var(--fn);font-size:12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px}
+.bsm:hover{border-color:var(--ac);color:var(--ac)}.bsm svg{width:13px;height:13px}
+.bpr{background:var(--ac) !important;border-color:var(--ac) !important;color:#0a0a0f !important;font-weight:600;padding:9px 20px;border-radius:50px;font-size:13px}
+.bpr:hover{background:var(--ac2) !important}
+.apb{width:100%;background:var(--bg3);border:1px dashed var(--bd2);border-radius:var(--r);padding:12px;color:var(--tx3);font-family:var(--fn);font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.apb:hover{border-color:var(--ac);color:var(--ac)}.apb svg{width:15px;height:15px}
+.svrow{margin-top:18px;display:flex;justify-content:flex-end}
+
+/* theme picker */
+.theme-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.theme-swatch{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s;position:relative}
+.theme-swatch.selected{border-color:var(--tx);transform:scale(1.15)}
+.theme-swatch:hover{transform:scale(1.1)}
+
+/* sound preview btn */
+.sound-row{display:flex;gap:6px;align-items:center}
+.preview-btn{background:var(--bg3);border:1px solid var(--bd);color:var(--tx2);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:11px;font-family:var(--fn);display:flex;align-items:center;gap:4px;transition:all .2s;white-space:nowrap}
+.preview-btn:hover{border-color:var(--bd2);color:var(--ac)}
+.preview-btn svg{width:12px;height:12px}
+
+/* ── CELEBRATION OVERLAY ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.celebration{background:var(--bg2);border:1px solid var(--bd2);border-radius:24px;padding:40px;text-align:center;max-width:380px;width:90%;position:relative;animation:popin .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popin{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+.cele-emoji{font-size:64px;display:block;margin-bottom:16px;animation:bounce 1s ease infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.cele-title{font-size:22px;font-weight:700;color:var(--ac);margin-bottom:8px}
+.cele-sub{font-size:14px;color:var(--tx2);margin-bottom:24px;line-height:1.6}
+.cele-btn{background:var(--ac);border:none;color:#0a0a0f;font-family:var(--fn);font-size:14px;font-weight:600;padding:12px 28px;border-radius:50px;cursor:pointer;transition:all .2s}
+.cele-btn:hover{background:var(--ac2)}
+.confetti{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;border-radius:24px;overflow:hidden}
+.cf{position:absolute;width:8px;height:8px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(300px) rotate(720deg);opacity:0}}
+
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ac);color:#0a0a0f;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;transition:transform .3s;z-index:200;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body class="t-amber">
+<div class="app">
+<nav>
+  <div class="logo">وِرد 📖</div>
+  <div class="ntabs">
+    <button class="ntab active" onclick="showPage('timer',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>المؤقت
+    </button>
+    <button class="ntab" onclick="showPage('stats',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>إحصائيات
+    </button>
+    <button class="ntab" onclick="showPage('settings',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>إعدادات
+    </button>
+  </div>
+  <div class="nav-actions">
+    <div class="sync-dot" id="sync-dot" title="حالة المزامنة"></div>
+    <button class="tbtn" onclick="toggleTheme()" aria-label="تبديل الوضع">
+      <svg id="theme-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- TIMER -->
+<div class="page active" id="page-timer">
+  <div class="tl">
+    <div>
+      <div class="ph"><span class="pbadge" id="pkg-badge">البكج 1</span><span class="pname" id="pkg-name">...</span></div>
+      <div class="ppbar"><div class="ppfill" id="pkg-prog" style="width:0%"></div></div>
+      <div class="cw">
+        <div class="rc" onclick="toggleTimer()">
+          <svg class="rsvg" viewBox="0 0 220 220">
+            <circle class="rtrk" cx="110" cy="110" r="96"/>
+            <circle class="rprg" id="ring" cx="110" cy="110" r="96" stroke-dasharray="603.19" stroke-dashoffset="0"/>
+          </svg>
+          <div class="rcenter">
+            <div class="ctime" id="clock">25:00</div>
+            <div class="clbl" id="clbl">قراءة</div>
+            <div class="cbadge ctr" id="cbadge">قراءة</div>
+          </div>
+          <div class="rov"><svg id="rovi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+      </div>
+      <div class="ctrlrow">
+        <button class="cside" onclick="resetTimer()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.53"/></svg></button>
+        <button class="cpbtn" onclick="toggleTimer()"><svg id="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+        <button class="cside" onclick="skipSession()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button>
+      </div>
+      <div class="sdots" id="sdots"></div>
+      <div class="pswitch">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span>التالي: <strong id="nxt">...</strong></span>
+        <span id="rem" style="margin-right:auto;font-size:11px;color:var(--tx3)"></span>
+      </div>
+    </div>
+    <div>
+      <div class="sc"><div class="stitle">البكجات</div><div id="plist"></div></div>
+      <div class="sc"><div class="stitle">اليوم</div>
+        <div class="ts">
+          <div class="sm"><div class="smv" id="sd">0</div><div class="sml">جلسة</div></div>
+          <div class="sm"><div class="smv" id="st">0</div><div class="sml">دقيقة</div></div>
+          <div class="sm"><div class="smv" id="sr">0</div><div class="sml">قراءة</div></div>
+          <div class="sm"><div class="smv" id="sm2">0</div><div class="sml">حفظ</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="page" id="page-stats">
+  <div class="sgrid">
+    <div class="scard"><div class="sv2" id="ts1">0</div><div class="sl">إجمالي الجلسات</div></div>
+    <div class="scard"><div class="sv2" id="th">0</div><div class="sl">إجمالي الساعات</div></div>
+    <div class="scard"><div class="sv2" id="tr2">0</div><div class="sl">جلسات قراءة</div></div>
+    <div class="scard"><div class="sv2" id="tm2">0</div><div class="sl">جلسات حفظ</div></div>
+  </div>
+  <div class="cc">
+    <div class="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>آخر 7 أيام</div>
+    <div class="bc" id="wchart"></div>
+    <div class="chart-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--gr)"></div>قراءة</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--bl)"></div>حفظ</div>
+    </div>
+  </div>
+  <div class="slog">
+    <div class="lh">
+      <div class="lt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>السجل</div>
+      <div class="la">
+        <div class="view-toggle">
+          <button class="vt active" onclick="setView('sessions',this)">الجلسات</button>
+          <button class="vt" onclick="setView('packages',this)">البكجات</button>
+        </div>
+        <button class="eb" onclick="exportExcel()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>تصدير Excel</button>
+      </div>
+    </div>
+    <div id="filter-row" style="display:flex;gap:3px;margin-bottom:12px">
+      <button class="fb active" onclick="filterLog('all',this)">الكل</button>
+      <button class="fb" onclick="filterLog('read',this)">قراءة</button>
+      <button class="fb" onclick="filterLog('memo',this)">حفظ</button>
+    </div>
+    <div id="logc"></div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <div class="cfg">
+    <div class="cfgc">
+      <div class="cfgt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>أوقات الجلسات</div>
+      <div class="fr"><div class="fl">مدة جلسة القراءة (دقيقة)</div><input class="fi" type="number" id="cr" min="1" max="60" value="25"></div>
+      <div class="fr"><div class="fl">مدة جلسة الحفظ (دقيقة)</div><input class="fi" type="number" id="cm" min="1" max="60" value="25"></div>
+      <div class="fr"><div class="fl">مدة الاستراحة (دقيقة)</div><input class="fi" type="number" id="cb" min="1" max="30" value="5"></div>
+    </div>
+    <div class="cfgc">
+      <div class="cfgt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>الأصوات والتفضيلات</div>
+      <div class="fr">
+        <div class="fl">صوت التنبيه عند انتهاء الجلسة</div>
+        <div class="sound-row">
+          <select class="fi" id="cs" style="flex:1">
+            <option value="bell">🔔 جرس كلاسيكي</option>
+            <option value="chime">🎵 رنين ناعم</option>
+            <option value="bowl">🪘 وعاء تبتي</option>
+            <option value="ping">📣 نبضة قصيرة</option>
+            <option value="gong">🔱 جرس ضخم</option>
+            <option value="nature">🌿 طبيعة</option>
+            <option value="none">🔇 بدون صوت</option>
+          </select>
+          <button class="preview-btn" onclick="previewSound()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            تجربة
+          </button>
+        </div>
+      </div>
+      <div class="fr"><div class="fl">بدء تلقائي بعد الاستراحة</div><select class="fi" id="ca"><option value="yes">نعم</option><option value="no">لا</option></select></div>
+    </div>
+    <div class="cfgc">
+      <div class="cfgt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>ثيم الألوان</div>
+      <div class="fr">
+        <div class="fl" style="margin-bottom:10px">الوضع الليلي</div>
+        <div class="theme-grid" id="dark-themes">
+          <div class="theme-swatch selected" style="background:#c8a96e" onclick="setTheme('amber')" title="ذهبي"></div>
+          <div class="theme-swatch" style="background:#4a9e6a" onclick="setTheme('emerald')" title="زمردي"></div>
+          <div class="theme-swatch" style="background:#4a7ec4" onclick="setTheme('sapphire')" title="ياقوتي"></div>
+          <div class="theme-swatch" style="background:#c45a7a" onclick="setTheme('rose')" title="وردي"></div>
+          <div class="theme-swatch" style="background:#8a5ac4" onclick="setTheme('violet')" title="بنفسجي"></div>
+        </div>
+      </div>
+    </div>
+    <div class="cfgc">
+      <div class="cfgt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>ثيم النهاري</div>
+      <div class="fr">
+        <div class="fl" style="margin-bottom:10px">لون الوضع النهاري</div>
+        <div class="theme-grid" id="light-themes">
+          <div class="theme-swatch selected" style="background:#8a6a30" onclick="setTheme('amber')" title="ذهبي"></div>
+          <div class="theme-swatch" style="background:#2a7a4a" onclick="setTheme('emerald')" title="زمردي"></div>
+          <div class="theme-swatch" style="background:#2a5ea4" onclick="setTheme('sapphire')" title="ياقوتي"></div>
+          <div class="theme-swatch" style="background:#a43a5a" onclick="setTheme('rose')" title="وردي"></div>
+          <div class="theme-swatch" style="background:#6a3aa4" onclick="setTheme('violet')" title="بنفسجي"></div>
+        </div>
+      </div>
+    </div>
+    <div class="cfgc pkgmgr">
+      <div class="cfgt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>إدارة البكجات</div>
+      <div id="pedit"></div>
+      <button class="apb" onclick="addPkg()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>إضافة بكج جديد</button>
+      <div class="svrow"><button class="bsm bpr" onclick="saveSettings()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><polyline points="20 6 9 17 4 12"/></svg>حفظ الإعدادات</button></div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// ══ JSONBin ══
+const BIN_ID  = '6a0ed2fa6877513b27aab79d';
+const API_KEY = '$2a$10$Eo.PLctYkPXYsma/OQeIPOrjbkYcGz73km.pKKN.mE46QdA7lgaU6';
+const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+let syncTimer=null;
+
+async function cloudLoad(){
+  setSyncDot('busy');
+  try{
+    const r=await fetch(BIN_URL+'/latest',{method:'GET',headers:{'X-Master-Key':API_KEY,'X-Bin-Meta':'false'}});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(d&&d.log)    S.log=d.log;
+    if(d&&d.config) C={...C,...d.config};
+    if(d&&d.pkgStates) S.pkgStates=d.pkgStates;
+    setSyncDot('ok');
+  }catch(e){setSyncDot('err');console.error('load:',e)}
+}
+async function cloudSave(){
+  setSyncDot('busy');
+  try{
+    const r=await fetch(BIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY,'X-Bin-Versioning':'false'},body:JSON.stringify({log:S.log,config:C,pkgStates:S.pkgStates})});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    setSyncDot('ok');
+  }catch(e){setSyncDot('err');console.error('save:',e)}
+}
+function scheduleSave(){clearTimeout(syncTimer);syncTimer=setTimeout(cloudSave,2000)}
+function setSyncDot(state){
+  const d=document.getElementById('sync-dot');
+  d.className='sync-dot '+state;
+  d.title={busy:'جاري المزامنة...',ok:'تمت المزامنة ✓',err:'خطأ في الاتصال'}[state]||'';
+}
+
+// ══ STATE ══
+let C={readDuration:25,memoDuration:25,breakDuration:5,sound:'bell',autostart:'yes',theme:'amber',packages:[
+  {id:1,name:'العلوم الشرعية',sessions:['read','read','read','read','read','read','memo','memo','memo']},
+  {id:2,name:'العلوم القانونية',sessions:['read','read','read','read','read','read','memo','memo','memo']},
+  {id:3,name:'اللغة العربية',sessions:['read','read','read','memo','read','read','read','memo']},
+]};
+// pkgStates: {pkgId: {si, completedSessions:[{type,date}]}}
+let S={pi:0,brk:false,run:false,tl:0,tot:0,iv:null,log:[],pkgStates:{}};
+let dark=true, currentTheme='amber', logView='sessions', logFilter='all';
+const CIRC=603.19;
+
+const SVG_PLAY='<polygon points="5 3 19 12 5 21 5 3"/>';
+const SVG_PAUSE='<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+const SVG_EYE='<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+const SVG_BOOK='<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>';
+function svgIcon(path,size=16){return`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`}
+
+// per-pkg session index
+function getPkgSI(){
+  const p=pkg();if(!p)return 0;
+  return S.pkgStates[p.id]?.si||0;
+}
+function setPkgSI(v){
+  const p=pkg();if(!p)return;
+  if(!S.pkgStates[p.id])S.pkgStates[p.id]={si:0,done:[]};
+  S.pkgStates[p.id].si=v;
+}
+function getPkgDone(){
+  const p=pkg();if(!p)return[];
+  return S.pkgStates[p.id]?.done||[];
+}
+function addPkgDone(entry){
+  const p=pkg();if(!p)return;
+  if(!S.pkgStates[p.id])S.pkgStates[p.id]={si:0,done:[]};
+  S.pkgStates[p.id].done.push(entry);
+}
+
+// ══ NAV ══
+function showPage(n,b){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+n).classList.add('active');
+  if(b)b.classList.add('active');
+  if(n==='stats')renderStats();
+  if(n==='settings')renderSettings();
+}
+
+// ══ THEME ══
+function setTheme(t){
+  currentTheme=t;
+  document.body.className=(dark?'':'light ')+' t-'+t;
+  document.querySelectorAll('#dark-themes .theme-swatch, #light-themes .theme-swatch').forEach((s,i)=>{
+    const themes=['amber','emerald','sapphire','rose','violet'];
+    s.classList.toggle('selected',themes[i%5]===t);
+  });
+}
+function toggleTheme(){
+  dark=!dark;
+  document.body.className=(dark?'':'light ')+' t-'+currentTheme;
+  const moon='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  const sun='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  document.getElementById('theme-svg').innerHTML=dark?sun:moon;
+}
+
+// ══ SOUND ══
+function playSound(type){
+  if(type==='none')return;
+  try{
+    const ctx=new AudioContext();
+    const g=ctx.createGain();g.connect(ctx.destination);
+    const play=(freq,dur,vol=.3,wave='sine',delay=0)=>{
+      const o=ctx.createOscillator();o.connect(g);o.type=wave;
+      o.frequency.setValueAtTime(freq,ctx.currentTime+delay);
+      g.gain.setValueAtTime(vol,ctx.currentTime+delay);
+      g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+delay+dur);
+      o.start(ctx.currentTime+delay);o.stop(ctx.currentTime+delay+dur);
+    };
+    if(type==='bell'){play(880,.05,.4);play(660,.8,.3,undefined,.05);play(440,1.2,.15,undefined,.1)}
+    else if(type==='chime'){[523,659,784,1047].forEach((f,i)=>play(f,.6,.25,'sine',i*.15))}
+    else if(type==='bowl'){play(220,3,.4,'sine');play(330,2,.15,'sine',.1);play(440,1.5,.08,'sine',.2)}
+    else if(type==='ping'){play(1200,.02,.5);play(900,.4,.3,undefined,.02)}
+    else if(type==='gong'){play(80,.1,.5,'sawtooth');play(120,3,.4,'sine',.05);play(160,2,.2,'sine',.1)}
+    else if(type==='nature'){[400,500,350,600,450].forEach((f,i)=>play(f,.3,.15,'sine',i*.2+Math.random()*.1))}
+    else{play(520,1.4,.25)}
+  }catch(e){}
+}
+function previewSound(){playSound(document.getElementById('cs').value)}
+
+// ══ TIMER ══
+function pkg(){return C.packages[S.pi]}
+function stype(){const p=pkg();if(!p||!p.sessions.length)return'read';return p.sessions[getPkgSI()]||'read'}
+function sdur(t){if(S.brk)return C.breakDuration*60;return(t==='memo'?C.memoDuration:C.readDuration)*60}
+function init(){const t=S.brk?'break':stype();S.tot=sdur(t);S.tl=S.tot;upDisp();upDots();upPkg();upSide()}
+
+function toggleTimer(){
+  if(S.run){clearInterval(S.iv);S.run=false;setPI(false)}
+  else{S.run=true;setPI(true);S.iv=setInterval(tick,1000)}
+}
+function setPI(p){
+  document.getElementById('picon').innerHTML=p?SVG_PAUSE:SVG_PLAY;
+  document.getElementById('rovi').innerHTML=p?SVG_PAUSE:SVG_PLAY;
+}
+function tick(){S.tl--;upDisp();if(S.tl<=0){clearInterval(S.iv);S.run=false;setPI(false);onDone()}}
+
+function onDone(){
+  playSound(C.sound);
+  if(!S.brk){
+    const t=stype();const p=pkg();
+    const entry={type:t,pkgName:p.name,pkgId:p.id,date:new Date().toISOString(),duration:t==='memo'?C.memoDuration:C.readDuration};
+    S.log.push(entry);
+    addPkgDone(entry);
+    const newSI=getPkgSI()+1;
+    setPkgSI(newSI);
+    if(newSI>=p.sessions.length){
+      // pkg complete!
+      setPkgSI(0);
+      scheduleSave();
+      showCelebration(p.name);
+      return;
+    }
+    scheduleSave();
+    S.brk=true;
+  }else{
+    S.brk=false;
+    if(C.autostart==='yes'){setTimeout(()=>{init();toggleTimer()},400);return}
+  }
+  init();
+}
+
+function resetTimer(){clearInterval(S.iv);S.run=false;setPI(false);S.brk=false;init()}
+function skipSession(){clearInterval(S.iv);S.run=false;setPI(false);onDone()}
+
+// ══ CELEBRATION ══
+function showCelebration(pkgName){
+  const emojis=['🎉','⭐','🏆','🌟','💫','✨','🎊'];
+  const msgs=[
+    'أحسنت! أتممت البكج بالكامل',
+    'ممتاز! استمر على هذا النهج',
+    'رائع! كل جلسة تقربك من هدفك',
+    'بارك الله فيك! إنجاز حقيقي',
+  ];
+  const emoji=emojis[Math.floor(Math.random()*emojis.length)];
+  const msg=msgs[Math.floor(Math.random()*msgs.length)];
+  
+  // confetti
+  const colors=['#c8a96e','#4a9e6a','#4a7ec4','#c45a7a','#f0ebe0','#e8c98e'];
+  let cHtml='';
+  for(let i=0;i<30;i++){
+    const c=colors[Math.floor(Math.random()*colors.length)];
+    const x=Math.random()*100;
+    const d=Math.random()*2+1;
+    const delay=Math.random()*1;
+    const size=Math.random()*8+4;
+    cHtml+=`<div class="cf" style="left:${x}%;width:${size}px;height:${size}px;background:${c};animation-duration:${d}s;animation-delay:${delay}s;border-radius:${Math.random()>0.5?'50%':'2px'}"></div>`;
+  }
+
+  const overlay=document.createElement('div');
+  overlay.className='overlay';
+  overlay.id='celebration';
+  overlay.innerHTML=`<div class="celebration">
+    <div class="confetti">${cHtml}</div>
+    <span class="cele-emoji">${emoji}</span>
+    <div class="cele-title">${msg}</div>
+    <div class="cele-sub">انتهيت من بكج<br><strong style="color:var(--ac)">${pkgName}</strong></div>
+    <button class="cele-btn" onclick="closeCelebration()">🚀 استمر</button>
+  </div>`;
+  document.body.appendChild(overlay);
+}
+function closeCelebration(){
+  const el=document.getElementById('celebration');
+  if(el)el.remove();
+  // advance to next pkg
+  S.pi=(S.pi+1)%C.packages.length;
+  S.brk=false;
+  init();
+}
+
+// ══ DISPLAY ══
+function upDisp(){
+  const m=Math.floor(S.tl/60);const s=S.tl%60;
+  document.getElementById('clock').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  const pct=S.tot>0?(S.tot-S.tl)/S.tot:0;
+  document.getElementById('ring').style.strokeDashoffset=CIRC*(1-pct);
+  const t=S.brk?'break':stype();
+  document.getElementById('ring').className='rprg'+(S.brk?' brk':'');
+  document.getElementById('clbl').textContent=S.brk?'استراحة':(t==='memo'?'حفظ':'قراءة');
+  const b=document.getElementById('cbadge');b.className='cbadge';
+  if(S.brk){b.classList.add('ctb');b.textContent='استراحة'}
+  else if(t==='memo'){b.classList.add('ctm');b.textContent='حفظ'}
+  else{b.classList.add('ctr');b.textContent='قراءة'}
+}
+
+function upDots(){
+  const p=pkg();if(!p)return;
+  const si=getPkgSI();
+  const c=document.getElementById('sdots');c.innerHTML='';
+  p.sessions.forEach((t,i)=>{
+    const d=document.createElement('div');d.className='sd';
+    if(i<si){d.classList.add(t==='memo'?'dm':'dr');d.innerHTML=svgIcon(t==='memo'?SVG_BOOK:SVG_EYE,10)}
+    else if(i===si){d.classList.add('act');d.textContent=S.brk?'☕':(t==='memo'?'ح':'ق')}
+    else{d.textContent=t==='memo'?'ح':'ق'}
+    c.appendChild(d);
+  });
+}
+
+function upPkg(){
+  const p=pkg();if(!p)return;
+  const si=getPkgSI();
+  document.getElementById('pkg-badge').textContent='البكج '+(S.pi+1);
+  document.getElementById('pkg-name').textContent=p.name;
+  document.getElementById('pkg-prog').style.width=Math.round((si/p.sessions.length)*100)+'%';
+  const ni=(S.pi+1)%C.packages.length;
+  document.getElementById('nxt').textContent=C.packages[ni]?.name||'---';
+  document.getElementById('rem').textContent=(p.sessions.length-si)+' جلسة متبقية';
+  
+  const list=document.getElementById('plist');list.innerHTML='';
+  C.packages.forEach((pk,i)=>{
+    const psi=S.pkgStates[pk.id]?.si||0;
+    const pct=Math.round((psi/pk.sessions.length)*100);
+    const el=document.createElement('div');el.className='pi2'+(i===S.pi?' cp':'');
+    el.innerHTML=`<div class="pdot${i===S.pi?' act':''}"></div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="pin">${pk.name}</span>
+          <span class="pmeta">${psi}/${pk.sessions.length}</span>
+        </div>
+        <div class="pkg-prog-mini"><div class="pkg-prog-mini-fill" style="width:${pct}%"></div></div>
+      </div>`;
+    el.onclick=()=>jumpTo(i);list.appendChild(el);
+  });
+}
+
+function jumpTo(i){
+  clearInterval(S.iv);S.run=false;setPI(false);
+  S.pi=i;S.brk=false;init();
+}
+
+function upSide(){
+  const td=new Date().toDateString();
+  const ts=S.log.filter(s=>new Date(s.date).toDateString()===td);
+  document.getElementById('sd').textContent=ts.length;
+  document.getElementById('st').textContent=ts.reduce((a,s)=>a+s.duration,0);
+  document.getElementById('sr').textContent=ts.filter(s=>s.type==='read').length;
+  document.getElementById('sm2').textContent=ts.filter(s=>s.type==='memo').length;
+}
+
+// ══ STATS ══
+function renderStats(){
+  const all=S.log;
+  document.getElementById('ts1').textContent=all.length;
+  document.getElementById('th').textContent=Math.floor(all.reduce((a,s)=>a+s.duration,0)/60);
+  document.getElementById('tr2').textContent=all.filter(s=>s.type==='read').length;
+  document.getElementById('tm2').textContent=all.filter(s=>s.type==='memo').length;
+  renderWeekChart();
+  renderLog();
+}
+
+function renderWeekChart(){
+  const chart=document.getElementById('wchart');chart.innerHTML='';
+  const days=['أحد','إثن','ثلا','أرب','خمس','جمع','سبت'];
+  const now=new Date();
+  // find max for scaling
+  let maxVal=0;
+  const weekData=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date(now);d.setDate(now.getDate()-i);
+    const ds=d.toDateString();
+    const r=S.log.filter(s=>new Date(s.date).toDateString()===ds&&s.type==='read').length;
+    const m=S.log.filter(s=>new Date(s.date).toDateString()===ds&&s.type==='memo').length;
+    maxVal=Math.max(maxVal,r+m,1);
+    weekData.push({d,ds,r,m});
+  }
+  weekData.forEach(({d,r,m})=>{
+    const rh=Math.round((r/maxVal)*100);
+    const mh=Math.round((m/maxVal)*100);
+    const isToday=d.toDateString()===now.toDateString();
+    const col=document.createElement('div');col.className='bcol';
+    col.innerHTML=`<div class="bst">
+      <div class="bf mb" style="height:${mh}%"></div>
+      <div class="bf rb" style="height:${rh}%"></div>
+    </div>
+    <div class="bll" style="${isToday?'color:var(--ac);font-weight:700':''}">${days[d.getDay()]}</div>`;
+    chart.appendChild(col);
+  });
+}
+
+function setView(v,btn){
+  logView=v;
+  document.querySelectorAll('.vt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const fr=document.getElementById('filter-row');
+  fr.style.display=v==='sessions'?'flex':'none';
+  renderLog();
+}
+function filterLog(t,b){
+  logFilter=t;
+  document.querySelectorAll('.fb').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  renderLog();
+}
+function renderLog(){
+  if(logView==='sessions') renderSessionsLog();
+  else renderPkgLog();
+}
+
+function renderSessionsLog(){
+  const c=document.getElementById('logc');
+  let sessions=[...S.log].reverse();
+  if(logFilter!=='all')sessions=sessions.filter(s=>s.type===logFilter);
+  if(!sessions.length){c.innerHTML='<div class="el">لا توجد جلسات بعد</div>';return}
+  const rows=sessions.slice(0,80).map(s=>{
+    const d=new Date(s.date);
+    return`<tr>
+      <td><span class="tp ${s.type==='read'?'ctr':'ctm'}">${s.type==='read'?'قراءة':'حفظ'}</span></td>
+      <td>${s.pkgName}</td><td>${s.duration} دقيقة</td>
+      <td style="color:var(--tx3)">${d.toLocaleDateString('ar-SA',{month:'short',day:'numeric'})}</td>
+      <td style="color:var(--tx3);font-family:var(--mn);font-size:11px">${d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'})}</td>
+    </tr>`;
+  }).join('');
+  c.innerHTML=`<table class="ltbl"><thead><tr>
+    <th style="width:72px">النوع</th><th>البكج</th><th style="width:82px">المدة</th>
+    <th style="width:90px">التاريخ</th><th style="width:68px">الوقت</th>
+  </tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function renderPkgLog(){
+  const c=document.getElementById('logc');
+  if(!S.log.length){c.innerHTML='<div class="el">لا توجد جلسات بعد</div>';return}
+  // group by pkg
+  const pkgMap={};
+  S.log.forEach(s=>{
+    const key=s.pkgName;
+    if(!pkgMap[key])pkgMap[key]={name:key,sessions:[],readCount:0,memoCount:0,totalMins:0};
+    pkgMap[key].sessions.push(s);
+    if(s.type==='read')pkgMap[key].readCount++;
+    else pkgMap[key].memoCount++;
+    pkgMap[key].totalMins+=s.duration;
+  });
+  const html=Object.values(pkgMap).map(pk=>{
+    const dots=pk.sessions.slice(-20).map(s=>`<div class="pls ${s.type==='read'?'r':'m'}">${s.type==='read'?'ق':'ح'}</div>`).join('');
+    return`<div class="pkg-log-card">
+      <div class="pkg-log-head">
+        <div class="pkg-log-name">${pk.name}</div>
+        <div class="pkg-log-stats">
+          <div class="pkg-log-stat" style="color:var(--gr)">📖 ${pk.readCount}</div>
+          <div class="pkg-log-stat" style="color:var(--bl)">📝 ${pk.memoCount}</div>
+          <div class="pkg-log-stat">⏱ ${pk.totalMins} د</div>
+        </div>
+      </div>
+      <div class="pkg-log-sessions">${dots}</div>
+    </div>`;
+  }).join('');
+  c.innerHTML=html;
+}
+
+// ══ EXPORT ══
+function exportExcel(){
+  if(!S.log.length){showToast('لا توجد جلسات للتصدير');return}
+  try{
+    const data=S.log.map(s=>{const d=new Date(s.date);return{'التاريخ':d.toLocaleDateString('ar-SA',{year:'numeric',month:'2-digit',day:'2-digit'}),'الوقت':d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'}),'النوع':s.type==='read'?'قراءة':'حفظ','البكج':s.pkgName,'المدة (دقيقة)':s.duration}});
+    const ws=XLSX.utils.json_to_sheet(data);ws['!cols']=[{wch:14},{wch:10},{wch:10},{wch:22},{wch:14}];
+    const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'جلسات وِرد');
+    XLSX.writeFile(wb,'wird_sessions_'+new Date().toISOString().slice(0,10)+'.xlsx');
+    showToast('تم التصدير بنجاح ✓');
+  }catch(e){showToast('خطأ في التصدير')}
+}
+
+// ══ SETTINGS ══
+function renderSettings(){
+  document.getElementById('cr').value=C.readDuration;
+  document.getElementById('cm').value=C.memoDuration;
+  document.getElementById('cb').value=C.breakDuration;
+  document.getElementById('cs').value=C.sound;
+  document.getElementById('ca').value=C.autostart;
+  setTheme(currentTheme);
+  renderPE();
+}
+function renderPE(){
+  const c=document.getElementById('pedit');c.innerHTML='';
+  const trashSVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M9 6V4h6v2"/></svg>';
+  const plusSVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+  C.packages.forEach((pkg,pi)=>{
+    const div=document.createElement('div');div.className='pe';
+    const chips=pkg.sessions.map((t,si)=>`<div class="chip ${t==='memo'?'mch':'rch'}" onclick="rmSess(${pi},${si})">${t==='memo'?'حفظ':'قراءة'}<span class="cx">×</span></div>`).join('');
+    div.innerHTML=`<div class="peh"><input value="${pkg.name}" class="fi" style="max-width:190px;padding:5px 10px;font-size:13px" onchange="upPN(${pi},this.value)"><button class="ib d" onclick="delPkg(${pi})">${trashSVG}</button></div><div class="sr2">${chips}</div><div class="asr"><select class="fi" id="at-${pi}" style="width:auto;padding:5px 9px;font-size:12px"><option value="read">قراءة</option><option value="memo">حفظ</option></select><button class="bsm" onclick="addSess(${pi})">${plusSVG} إضافة</button></div>`;
+    c.appendChild(div);
+  });
+}
+function upPN(pi,v){C.packages[pi].name=v}
+function rmSess(pi,si){C.packages[pi].sessions.splice(si,1);renderPE()}
+function addSess(pi){C.packages[pi].sessions.push(document.getElementById('at-'+pi).value);renderPE()}
+function delPkg(pi){if(C.packages.length<=1){showToast('يجب أن يبقى بكج واحد');return}C.packages.splice(pi,1);if(S.pi>=C.packages.length)S.pi=0;renderPE()}
+function addPkg(){C.packages.push({id:Date.now(),name:'بكج جديد',sessions:['read','read','read','memo','memo']});renderPE()}
+function saveSettings(){
+  C.readDuration=parseInt(document.getElementById('cr').value)||25;
+  C.memoDuration=parseInt(document.getElementById('cm').value)||25;
+  C.breakDuration=parseInt(document.getElementById('cb').value)||5;
+  C.sound=document.getElementById('cs').value;
+  C.autostart=document.getElementById('ca').value;
+  C.theme=currentTheme;
+  clearInterval(S.iv);S.run=false;setPI(false);S.brk=false;
+  init();upPkg();scheduleSave();showToast('تم حفظ الإعدادات ✓');
+}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+// ══ BOOT ══
+cloudLoad().then(()=>{
+  if(C.theme){currentTheme=C.theme;setTheme(C.theme)}
+  init();upPkg();upSide();
+});
+</script>
+</body>
+</html>
