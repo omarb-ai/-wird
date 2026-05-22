@@ -31,7 +31,6 @@
 .light.t-sapphire{--ac:#2a5ea4;--ac2:#1a4e84;--bd:rgba(42,94,164,0.2);--bd2:rgba(42,94,164,0.4)}
 .light.t-rose{--ac:#a43a5a;--ac2:#842a4a;--bd:rgba(164,58,90,0.2);--bd2:rgba(164,58,90,0.4)}
 .light.t-violet{--ac:#6a3aa4;--ac2:#5a2a84;--bd:rgba(106,58,164,0.2);--bd2:rgba(106,58,164,0.4)}
-
 body{font-family:var(--fn);background:var(--bg);color:var(--tx);min-height:100vh;transition:background .3s,color .3s;overflow-x:hidden}
 .app{display:flex;flex-direction:column;min-height:100vh;max-width:920px;margin:0 auto;padding:0 22px}
 
@@ -426,8 +425,9 @@ async function cloudSave(){
     setSyncDot('ok');
   }catch(e){setSyncDot('err');console.error('save:',e)}
 }
-function scheduleSave(){clearTimeout(syncTimer);syncTimer=setTimeout(cloudSave,2000)}
-function setSyncDot(state){
+function scheduleSave(){localSave();clearTimeout(syncTimer);syncTimer=setTimeout(cloudSave,2000)}
+function localSave(){try{localStorage.setItem('wird',JSON.stringify({log:S.log,config:C,pkgStates:S.pkgStates}))}catch(e){}}
+function localLoad(){try{const d=JSON.parse(localStorage.getItem('wird')||'{}');if(d.log)S.log=d.log;if(d.config)C={...C,...d.config};if(d.pkgStates)S.pkgStates=d.pkgStates}catch(e){}}function setSyncDot(state){
   const d=document.getElementById('sync-dot');
   d.className='sync-dot '+state;
   d.title={busy:'جاري المزامنة...',ok:'تمت المزامنة ✓',err:'خطأ في الاتصال'}[state]||'';
@@ -840,10 +840,13 @@ function saveSettings(){
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
 
 // ══ BOOT ══
+localLoad();
+if(C.theme){currentTheme=C.theme;setTheme(C.theme)}
+init();upPkg();upSide();
 cloudLoad().then(()=>{
   if(C.theme){currentTheme=C.theme;setTheme(C.theme)}
   init();upPkg();upSide();
-});
-</script>
+  localSave();
+});</script>
 </body>
 </html>
