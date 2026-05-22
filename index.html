@@ -18,19 +18,18 @@
   --fn:'IBM Plex Sans Arabic',sans-serif;--mn:'Space Mono',monospace;
   --r:12px;--r2:20px;
 }
-/* dark themes */
 .t-amber{--ac:#c8a96e;--ac2:#e8c98e;--bd:rgba(200,169,110,0.15);--bd2:rgba(200,169,110,0.3)}
 .t-emerald{--ac:#4a9e6a;--ac2:#6abe8a;--bd:rgba(74,158,106,0.2);--bd2:rgba(74,158,106,0.35)}
 .t-sapphire{--ac:#4a7ec4;--ac2:#6a9ee4;--bd:rgba(74,126,196,0.2);--bd2:rgba(74,126,196,0.35)}
 .t-rose{--ac:#c45a7a;--ac2:#e47a9a;--bd:rgba(196,90,122,0.2);--bd2:rgba(196,90,122,0.35)}
 .t-violet{--ac:#8a5ac4;--ac2:#aa7ae4;--bd:rgba(138,90,196,0.2);--bd2:rgba(138,90,196,0.35)}
-/* light themes */
 .light{--bg:#f5f0e8;--bg2:#ede8de;--bg3:#e2dcd0;--bg4:#d4cec0;--tx:#2a2420;--tx2:#6a5a40;--tx3:#9a8a70}
 .light.t-amber{--ac:#8a6a30;--ac2:#6a4a10;--bd:rgba(138,106,48,0.2);--bd2:rgba(138,106,48,0.4)}
 .light.t-emerald{--ac:#2a7a4a;--ac2:#1a5a3a;--bd:rgba(42,122,74,0.2);--bd2:rgba(42,122,74,0.4)}
 .light.t-sapphire{--ac:#2a5ea4;--ac2:#1a4e84;--bd:rgba(42,94,164,0.2);--bd2:rgba(42,94,164,0.4)}
 .light.t-rose{--ac:#a43a5a;--ac2:#842a4a;--bd:rgba(164,58,90,0.2);--bd2:rgba(164,58,90,0.4)}
 .light.t-violet{--ac:#6a3aa4;--ac2:#5a2a84;--bd:rgba(106,58,164,0.2);--bd2:rgba(106,58,164,0.4)}
+
 body{font-family:var(--fn);background:var(--bg);color:var(--tx);min-height:100vh;transition:background .3s,color .3s;overflow-x:hidden}
 .app{display:flex;flex-direction:column;min-height:100vh;max-width:920px;margin:0 auto;padding:0 22px}
 
@@ -61,7 +60,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .ppbar{width:100%;height:3px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-bottom:22px}
 .ppfill{height:100%;background:var(--ac);border-radius:4px;transition:width .5s}
 
-/* ring */
 .cw{display:flex;flex-direction:column;align-items:center;margin-bottom:20px}
 .rc{position:relative;width:220px;height:220px;cursor:pointer;user-select:none}
 .rsvg{width:220px;height:220px;transform:rotate(-90deg)}
@@ -88,7 +86,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .cpbtn:hover{background:var(--ac2)}.cpbtn:active{transform:scale(.95)}
 .cpbtn svg{width:25px;height:25px}
 
-/* dots */
 .sdots{display:flex;gap:5px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
 .sd{width:25px;height:25px;border-radius:50%;border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--tx3);transition:all .3s;cursor:pointer}
 .sd:hover{border-color:var(--bd2)}
@@ -101,7 +98,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .pswitch svg{color:var(--ac);width:14px;height:14px;flex-shrink:0}
 .pswitch strong{color:var(--tx)}
 
-/* sidebar */
 .sc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;margin-bottom:12px}
 .stitle{font-size:10px;letter-spacing:2px;color:var(--tx3);text-transform:uppercase;margin-bottom:11px}
 .pi2{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r);cursor:pointer;transition:all .2s;margin-bottom:3px;border:1px solid transparent}
@@ -135,7 +131,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--tx3)}
 .legend-dot{width:8px;height:8px;border-radius:50%}
 
-/* log */
 .slog{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:20px}
 .lh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
 .lt{font-size:14px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:7px}
@@ -155,7 +150,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .tp{display:inline-block;padding:2px 8px;border-radius:50px;font-size:10px;font-weight:600}
 .el{text-align:center;padding:34px;color:var(--tx3);font-size:14px}
 
-/* pkg log view */
 .pkg-log-card{background:var(--bg3);border-radius:var(--r);padding:14px;margin-bottom:10px;border:1px solid var(--bd)}
 .pkg-log-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .pkg-log-name{font-size:14px;font-weight:600;color:var(--tx)}
@@ -193,13 +187,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .apb:hover{border-color:var(--ac);color:var(--ac)}.apb svg{width:15px;height:15px}
 .svrow{margin-top:18px;display:flex;justify-content:flex-end}
 
-/* theme picker */
 .theme-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
 .theme-swatch{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s;position:relative}
 .theme-swatch.selected{border-color:var(--tx);transform:scale(1.15)}
 .theme-swatch:hover{transform:scale(1.1)}
 
-/* sound preview btn */
 .sound-row{display:flex;gap:6px;align-items:center}
 .preview-btn{background:var(--bg3);border:1px solid var(--bd);color:var(--tx2);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:11px;font-family:var(--fn);display:flex;align-items:center;gap:4px;transition:all .2s;white-space:nowrap}
 .preview-btn:hover{border-color:var(--bd2);color:var(--ac)}
@@ -399,7 +391,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-// ══ JSONBin ══
+// ══ JSONBin (مزامنة بين الأجهزة) ══
 const BIN_ID  = '6a0ed2fa6877513b27aab79d';
 const API_KEY = '$2a$10$Eo.PLctYkPXYsma/OQeIPOrjbkYcGz73km.pKKN.mE46QdA7lgaU6';
 const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
@@ -411,26 +403,48 @@ async function cloudLoad(){
     const r=await fetch(BIN_URL+'/latest',{method:'GET',headers:{'X-Master-Key':API_KEY,'X-Bin-Meta':'false'}});
     if(!r.ok)throw new Error('HTTP '+r.status);
     const d=await r.json();
-    if(d&&d.log)    S.log=d.log;
-    if(d&&d.config) C={...C,...d.config};
+    if(d&&d.log)     S.log=d.log;
+    if(d&&d.config)  C={...C,...d.config};
     if(d&&d.pkgStates) S.pkgStates=d.pkgStates;
+    if(d&&d.pi!==undefined) S.pi=d.pi;
     setSyncDot('ok');
   }catch(e){setSyncDot('err');console.error('load:',e)}
 }
 async function cloudSave(){
   setSyncDot('busy');
   try{
-    const r=await fetch(BIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY,'X-Bin-Versioning':'false'},body:JSON.stringify({log:S.log,config:C,pkgStates:S.pkgStates})});
+    const r=await fetch(BIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY,'X-Bin-Versioning':'false'},body:JSON.stringify({log:S.log,config:C,pkgStates:S.pkgStates,pi:S.pi})});
     if(!r.ok)throw new Error('HTTP '+r.status);
     setSyncDot('ok');
   }catch(e){setSyncDot('err');console.error('save:',e)}
 }
-function scheduleSave(){localSave();clearTimeout(syncTimer);syncTimer=setTimeout(cloudSave,2000)}
-function localSave(){try{localStorage.setItem('wird',JSON.stringify({log:S.log,config:C,pkgStates:S.pkgStates}))}catch(e){}}
-function localLoad(){try{const d=JSON.parse(localStorage.getItem('wird')||'{}');if(d.log)S.log=d.log;if(d.config)C={...C,...d.config};if(d.pkgStates)S.pkgStates=d.pkgStates}catch(e){}}function setSyncDot(state){
+function scheduleSave(){
+  localSave();
+  clearTimeout(syncTimer);
+  syncTimer=setTimeout(cloudSave,2000);
+}
+function setSyncDot(state){
   const d=document.getElementById('sync-dot');
   d.className='sync-dot '+state;
   d.title={busy:'جاري المزامنة...',ok:'تمت المزامنة ✓',err:'خطأ في الاتصال'}[state]||'';
+}
+
+// ══ التخزين المحلي (يحفظ البيانات في نفس المتصفح) ══
+function localSave(){
+  try{
+    localStorage.setItem('wird_data',JSON.stringify({log:S.log,config:C,pkgStates:S.pkgStates,pi:S.pi}));
+  }catch(e){}
+}
+function localLoad(){
+  try{
+    const raw=localStorage.getItem('wird_data');
+    if(!raw)return;
+    const d=JSON.parse(raw);
+    if(d.log)       S.log=d.log;
+    if(d.config)    C={...C,...d.config};
+    if(d.pkgStates) S.pkgStates=d.pkgStates;
+    if(d.pi!==undefined) S.pi=d.pi;
+  }catch(e){}
 }
 
 // ══ STATE ══
@@ -439,7 +453,6 @@ let C={readDuration:25,memoDuration:25,breakDuration:5,sound:'bell',autostart:'y
   {id:2,name:'العلوم القانونية',sessions:['read','read','read','read','read','read','memo','memo','memo']},
   {id:3,name:'اللغة العربية',sessions:['read','read','read','memo','read','read','read','memo']},
 ]};
-// pkgStates: {pkgId: {si, completedSessions:[{type,date}]}}
 let S={pi:0,brk:false,run:false,tl:0,tot:0,iv:null,log:[],pkgStates:{}};
 let dark=true, currentTheme='amber', logView='sessions', logFilter='all';
 const CIRC=603.19;
@@ -450,7 +463,6 @@ const SVG_EYE='<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle c
 const SVG_BOOK='<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>';
 function svgIcon(path,size=16){return`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`}
 
-// per-pkg session index
 function getPkgSI(){
   const p=pkg();if(!p)return 0;
   return S.pkgStates[p.id]?.si||0;
@@ -547,7 +559,6 @@ function onDone(){
     const newSI=getPkgSI()+1;
     setPkgSI(newSI);
     if(newSI>=p.sessions.length){
-      // pkg complete!
       setPkgSI(0);
       scheduleSave();
       showCelebration(p.name);
@@ -568,43 +579,24 @@ function skipSession(){clearInterval(S.iv);S.run=false;setPI(false);onDone()}
 // ══ CELEBRATION ══
 function showCelebration(pkgName){
   const emojis=['🎉','⭐','🏆','🌟','💫','✨','🎊'];
-  const msgs=[
-    'أحسنت! أتممت البكج بالكامل',
-    'ممتاز! استمر على هذا النهج',
-    'رائع! كل جلسة تقربك من هدفك',
-    'بارك الله فيك! إنجاز حقيقي',
-  ];
+  const msgs=['أحسنت! أتممت البكج بالكامل','ممتاز! استمر على هذا النهج','رائع! كل جلسة تقربك من هدفك','بارك الله فيك! إنجاز حقيقي'];
   const emoji=emojis[Math.floor(Math.random()*emojis.length)];
   const msg=msgs[Math.floor(Math.random()*msgs.length)];
-  
-  // confetti
   const colors=['#c8a96e','#4a9e6a','#4a7ec4','#c45a7a','#f0ebe0','#e8c98e'];
   let cHtml='';
   for(let i=0;i<30;i++){
     const c=colors[Math.floor(Math.random()*colors.length)];
-    const x=Math.random()*100;
-    const d=Math.random()*2+1;
-    const delay=Math.random()*1;
-    const size=Math.random()*8+4;
+    const x=Math.random()*100;const d=Math.random()*2+1;const delay=Math.random()*1;const size=Math.random()*8+4;
     cHtml+=`<div class="cf" style="left:${x}%;width:${size}px;height:${size}px;background:${c};animation-duration:${d}s;animation-delay:${delay}s;border-radius:${Math.random()>0.5?'50%':'2px'}"></div>`;
   }
-
   const overlay=document.createElement('div');
-  overlay.className='overlay';
-  overlay.id='celebration';
-  overlay.innerHTML=`<div class="celebration">
-    <div class="confetti">${cHtml}</div>
-    <span class="cele-emoji">${emoji}</span>
-    <div class="cele-title">${msg}</div>
-    <div class="cele-sub">انتهيت من بكج<br><strong style="color:var(--ac)">${pkgName}</strong></div>
-    <button class="cele-btn" onclick="closeCelebration()">🚀 استمر</button>
-  </div>`;
+  overlay.className='overlay';overlay.id='celebration';
+  overlay.innerHTML=`<div class="celebration"><div class="confetti">${cHtml}</div><span class="cele-emoji">${emoji}</span><div class="cele-title">${msg}</div><div class="cele-sub">انتهيت من بكج<br><strong style="color:var(--ac)">${pkgName}</strong></div><button class="cele-btn" onclick="closeCelebration()">🚀 استمر</button></div>`;
   document.body.appendChild(overlay);
 }
 function closeCelebration(){
   const el=document.getElementById('celebration');
   if(el)el.remove();
-  // advance to next pkg
   S.pi=(S.pi+1)%C.packages.length;
   S.brk=false;
   init();
@@ -647,7 +639,6 @@ function upPkg(){
   const ni=(S.pi+1)%C.packages.length;
   document.getElementById('nxt').textContent=C.packages[ni]?.name||'---';
   document.getElementById('rem').textContent=(p.sessions.length-si)+' جلسة متبقية';
-  
   const list=document.getElementById('plist');list.innerHTML='';
   C.packages.forEach((pk,i)=>{
     const psi=S.pkgStates[pk.id]?.si||0;
@@ -668,6 +659,7 @@ function upPkg(){
 function jumpTo(i){
   clearInterval(S.iv);S.run=false;setPI(false);
   S.pi=i;S.brk=false;init();
+  scheduleSave();
 }
 
 function upSide(){
@@ -686,15 +678,13 @@ function renderStats(){
   document.getElementById('th').textContent=Math.floor(all.reduce((a,s)=>a+s.duration,0)/60);
   document.getElementById('tr2').textContent=all.filter(s=>s.type==='read').length;
   document.getElementById('tm2').textContent=all.filter(s=>s.type==='memo').length;
-  renderWeekChart();
-  renderLog();
+  renderWeekChart();renderLog();
 }
 
 function renderWeekChart(){
   const chart=document.getElementById('wchart');chart.innerHTML='';
   const days=['أحد','إثن','ثلا','أرب','خمس','جمع','سبت'];
   const now=new Date();
-  // find max for scaling
   let maxVal=0;
   const weekData=[];
   for(let i=6;i>=0;i--){
@@ -710,11 +700,7 @@ function renderWeekChart(){
     const mh=Math.round((m/maxVal)*100);
     const isToday=d.toDateString()===now.toDateString();
     const col=document.createElement('div');col.className='bcol';
-    col.innerHTML=`<div class="bst">
-      <div class="bf mb" style="height:${mh}%"></div>
-      <div class="bf rb" style="height:${rh}%"></div>
-    </div>
-    <div class="bll" style="${isToday?'color:var(--ac);font-weight:700':''}">${days[d.getDay()]}</div>`;
+    col.innerHTML=`<div class="bst"><div class="bf mb" style="height:${mh}%"></div><div class="bf rb" style="height:${rh}%"></div></div><div class="bll" style="${isToday?'color:var(--ac);font-weight:700':''}">${days[d.getDay()]}</div>`;
     chart.appendChild(col);
   });
 }
@@ -734,7 +720,7 @@ function filterLog(t,b){
   renderLog();
 }
 function renderLog(){
-  if(logView==='sessions') renderSessionsLog();
+  if(logView==='sessions')renderSessionsLog();
   else renderPkgLog();
 }
 
@@ -745,23 +731,14 @@ function renderSessionsLog(){
   if(!sessions.length){c.innerHTML='<div class="el">لا توجد جلسات بعد</div>';return}
   const rows=sessions.slice(0,80).map(s=>{
     const d=new Date(s.date);
-    return`<tr>
-      <td><span class="tp ${s.type==='read'?'ctr':'ctm'}">${s.type==='read'?'قراءة':'حفظ'}</span></td>
-      <td>${s.pkgName}</td><td>${s.duration} دقيقة</td>
-      <td style="color:var(--tx3)">${d.toLocaleDateString('ar-SA',{month:'short',day:'numeric'})}</td>
-      <td style="color:var(--tx3);font-family:var(--mn);font-size:11px">${d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'})}</td>
-    </tr>`;
+    return`<tr><td><span class="tp ${s.type==='read'?'ctr':'ctm'}">${s.type==='read'?'قراءة':'حفظ'}</span></td><td>${s.pkgName}</td><td>${s.duration} دقيقة</td><td style="color:var(--tx3)">${d.toLocaleDateString('ar-SA',{month:'short',day:'numeric'})}</td><td style="color:var(--tx3);font-family:var(--mn);font-size:11px">${d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'})}</td></tr>`;
   }).join('');
-  c.innerHTML=`<table class="ltbl"><thead><tr>
-    <th style="width:72px">النوع</th><th>البكج</th><th style="width:82px">المدة</th>
-    <th style="width:90px">التاريخ</th><th style="width:68px">الوقت</th>
-  </tr></thead><tbody>${rows}</tbody></table>`;
+  c.innerHTML=`<table class="ltbl"><thead><tr><th style="width:72px">النوع</th><th>البكج</th><th style="width:82px">المدة</th><th style="width:90px">التاريخ</th><th style="width:68px">الوقت</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 function renderPkgLog(){
   const c=document.getElementById('logc');
   if(!S.log.length){c.innerHTML='<div class="el">لا توجد جلسات بعد</div>';return}
-  // group by pkg
   const pkgMap={};
   S.log.forEach(s=>{
     const key=s.pkgName;
@@ -773,17 +750,7 @@ function renderPkgLog(){
   });
   const html=Object.values(pkgMap).map(pk=>{
     const dots=pk.sessions.slice(-20).map(s=>`<div class="pls ${s.type==='read'?'r':'m'}">${s.type==='read'?'ق':'ح'}</div>`).join('');
-    return`<div class="pkg-log-card">
-      <div class="pkg-log-head">
-        <div class="pkg-log-name">${pk.name}</div>
-        <div class="pkg-log-stats">
-          <div class="pkg-log-stat" style="color:var(--gr)">📖 ${pk.readCount}</div>
-          <div class="pkg-log-stat" style="color:var(--bl)">📝 ${pk.memoCount}</div>
-          <div class="pkg-log-stat">⏱ ${pk.totalMins} د</div>
-        </div>
-      </div>
-      <div class="pkg-log-sessions">${dots}</div>
-    </div>`;
+    return`<div class="pkg-log-card"><div class="pkg-log-head"><div class="pkg-log-name">${pk.name}</div><div class="pkg-log-stats"><div class="pkg-log-stat" style="color:var(--gr)">📖 ${pk.readCount}</div><div class="pkg-log-stat" style="color:var(--bl)">📝 ${pk.memoCount}</div><div class="pkg-log-stat">⏱ ${pk.totalMins} د</div></div></div><div class="pkg-log-sessions">${dots}</div></div>`;
   }).join('');
   c.innerHTML=html;
 }
@@ -840,13 +807,17 @@ function saveSettings(){
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
 
 // ══ BOOT ══
+// 1) حمّل من المتصفح أولاً (فوري)
 localLoad();
 if(C.theme){currentTheme=C.theme;setTheme(C.theme)}
 init();upPkg();upSide();
+
+// 2) زامن مع السحابة (لو فتحت من جهاز ثاني)
 cloudLoad().then(()=>{
   if(C.theme){currentTheme=C.theme;setTheme(C.theme)}
   init();upPkg();upSide();
   localSave();
-});</script>
+});
+</script>
 </body>
 </html>
