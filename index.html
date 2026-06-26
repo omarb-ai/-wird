@@ -219,10 +219,49 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ac);color:#0a0a0f;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;transition:transform .3s;z-index:200;pointer-events:none;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
+/* ── الإنجازات ── */
+.ach-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.ach-year{display:flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--bd);border-radius:50px;padding:5px 8px}
+.yb{background:transparent;border:none;color:var(--tx2);width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.yb:hover{background:var(--bg4);color:var(--ac)}.yb svg{width:16px;height:16px}
+.yv{font-family:var(--mn);font-size:18px;font-weight:700;color:var(--ac);min-width:54px;text-align:center}
+.ebp{background:var(--ac) !important;border-color:var(--ac) !important;color:#0a0a0f !important;font-weight:600}
+.ebp:hover{background:var(--ac2) !important}
+.ach-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:22px}
+.ach-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ach-card-ic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:4px}
+.ach-card-v{font-family:var(--mn);font-size:26px;font-weight:700;color:var(--tx)}
+.ach-card-l{font-size:11px;color:var(--tx3);letter-spacing:1px}
+.ai{display:flex;align-items:flex-start;gap:12px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:13px;margin-bottom:9px}
+.ai-ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ai-body{flex:1;min-width:0}
+.ai-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.ai-t{font-size:14px;font-weight:600;color:var(--tx)}
+.ai-type{font-size:11px;font-weight:600}
+.ai-meta{display:flex;flex-wrap:wrap;gap:4px 14px;margin-bottom:3px}
+.ai-m{font-size:12px;color:var(--tx2)}
+.ai-mk{color:var(--tx3)}
+.ai-date{font-size:11px;color:var(--tx3);font-family:var(--mn)}
+.ai-act{display:flex;gap:5px;flex-shrink:0}
+.ach-form{background:var(--bg2);border:1px solid var(--bd2);border-radius:24px;padding:28px;max-width:440px;width:92%;max-height:88vh;overflow-y:auto;animation:popin .35s cubic-bezier(.34,1.56,.64,1)}
+.af-h{font-size:18px;font-weight:700;color:var(--ac);margin-bottom:18px}
+.af-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.atf{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.atfields{margin-bottom:8px}
+.achtype-hint{font-size:12px;color:var(--tx3);margin-bottom:12px;line-height:1.6}
+
+/* ── شريط التنقّل: 4 تبويبات ── */
+.ntabs{flex-wrap:nowrap;overflow-x:auto;max-width:100%}
+.ntabs::-webkit-scrollbar{display:none}
+.ntabs{scrollbar-width:none}
+
 @media(max-width:680px){
   .tl{grid-template-columns:1fr}
   .sgrid{grid-template-columns:1fr 1fr}
   .cfg{grid-template-columns:1fr}
+  nav{flex-wrap:wrap;gap:10px}
+  .logo{order:1}.nav-actions{order:2}.ntabs{order:3;width:100%;justify-content:flex-start}
+  .ntab{padding:7px 12px;font-size:12px}
 }
 </style>
 </head>
@@ -236,6 +275,9 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
     </button>
     <button class="ntab" onclick="showPage('stats',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>الداشبورد
+    </button>
+    <button class="ntab" onclick="showPage('ach',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>الإنجازات
     </button>
     <button class="ntab" onclick="showPage('settings',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>إعدادات
@@ -331,6 +373,34 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
   </div>
 </div>
 
+<!-- ACHIEVEMENTS -->
+<div class="page" id="page-ach">
+  <div class="ach-top">
+    <div class="ach-year">
+      <button class="yb" onclick="shiftYear(-1)" title="السنة السابقة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <span class="yv" id="ach-year">2026</span>
+      <button class="yb" onclick="shiftYear(1)" title="السنة التالية"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+    </div>
+    <div class="la">
+      <button class="eb" onclick="exportAch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>تصدير Excel</button>
+      <button class="eb ebp" onclick="openAchForm()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>إضافة إنجاز</button>
+    </div>
+  </div>
+  <div class="ach-cards" id="ach-cards"></div>
+  <div class="cc">
+    <div class="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><polyline points="4 14 9 9 13 13 20 6"/></svg>الخط الزمني <span id="ach-year-lbl" style="color:var(--tx3);font-weight:400;font-size:12px"></span></div>
+    <div class="bc" id="ach-chart" style="height:130px"></div>
+    <div class="chart-legend" id="ach-legend"></div>
+  </div>
+  <div class="slog">
+    <div class="lh">
+      <div class="lt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>السجل</div>
+      <div class="la" id="ach-filters"></div>
+    </div>
+    <div id="ach-list"></div>
+  </div>
+</div>
+
 <!-- SETTINGS -->
 <div class="page" id="page-settings">
   <div class="cfg">
@@ -388,6 +458,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
       </div>
     </div>
     <div class="cfgc pkgmgr">
+      <div class="cfgt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>أنواع الإنجازات</div>
+      <div class="achtype-hint">عرّف كل نوع وحقوله. «حقل تاريخ الإحصاء» هو التاريخ المعتمد في الخط الزمني والإحصائية السنوية.</div>
+      <div id="atedit"></div>
+      <button class="apb" onclick="addAchType()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>إضافة نوع جديد</button>
+    </div>
+    <div class="cfgc pkgmgr">
       <div class="cfgt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>إدارة البكجات</div>
       <div id="pedit"></div>
       <button class="apb" onclick="addPkg()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>إضافة بكج جديد</button>
@@ -415,6 +491,7 @@ async function cloudLoad(){
     if(d && d.log)        S.log       = d.log;
     if(d && d.config)     C           = {...C, ...d.config};
     if(d && d.pkgStates)  S.pkgStates = d.pkgStates;
+    if(d && d.achievements) S.achievements = d.achievements;
     if(d && d.pi !== undefined) S.pi  = d.pi;
     setSyncDot('ok');
   }catch(e){ setSyncDot('err'); console.error('load:',e) }
@@ -423,7 +500,7 @@ async function cloudSave(){
   setSyncDot('busy');
   try{
     const r = await fetch(BIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY,'X-Bin-Versioning':'false'},
-      body: JSON.stringify({log:S.log, config:C, pkgStates:S.pkgStates, pi:S.pi})});
+      body: JSON.stringify({log:S.log, config:C, pkgStates:S.pkgStates, achievements:S.achievements, pi:S.pi})});
     if(!r.ok) throw new Error('HTTP '+r.status);
     setSyncDot('ok');
   }catch(e){ setSyncDot('err'); console.error('save:',e) }
@@ -441,7 +518,7 @@ function setSyncDot(state){
 
 // ══ التخزين المحلي ══
 function localSave(){
-  try{ localStorage.setItem('wird_data', JSON.stringify({log:S.log, config:C, pkgStates:S.pkgStates, pi:S.pi})); }catch(e){}
+  try{ localStorage.setItem('wird_data', JSON.stringify({log:S.log, config:C, pkgStates:S.pkgStates, achievements:S.achievements, pi:S.pi})); }catch(e){}
 }
 function localLoad(){
   try{
@@ -451,6 +528,7 @@ function localLoad(){
     if(d.log)               S.log       = d.log;
     if(d.config)            C           = {...C, ...d.config};
     if(d.pkgStates)         S.pkgStates = d.pkgStates;
+    if(d.achievements)      S.achievements = d.achievements;
     if(d.pi !== undefined)  S.pi        = d.pi;
   }catch(e){}
 }
@@ -482,9 +560,32 @@ let C = {
   sound:'bell', autostart:'yes', theme:'amber',
   packages:[
     {id:1, name:'البكج الأول', sessions:['read','read','read','memo','read','read','read','memo']}
+  ],
+  // أنواع الإنجازات — كل نوع يعرّف حقوله الخاصة. dateKey = الحقل المعتمد للإحصاء السنوي
+  achTypes:[
+    {id:'book', name:'كتاب', icon:'📚', dateKey:'end', fields:[
+      {key:'title',  label:'الاسم',          type:'text'},
+      {key:'author', label:'الكاتب',         type:'text'},
+      {key:'category',label:'التصنيف',       type:'text'},
+      {key:'pages',  label:'عدد الصفحات',    type:'number'},
+      {key:'start',  label:'تاريخ البداية',  type:'date'},
+      {key:'end',    label:'تاريخ النهاية',  type:'date'}
+    ]},
+    {id:'poem', name:'قصيدة', icon:'🪶', dateKey:'date', fields:[
+      {key:'title', label:'العنوان',      type:'text'},
+      {key:'poet',  label:'الشاعر',       type:'text'},
+      {key:'verses',label:'عدد الأبيات',  type:'number'},
+      {key:'date',  label:'تاريخ الحفظ',  type:'date'}
+    ]},
+    {id:'audio', name:'مقطع', icon:'🎧', dateKey:'date', fields:[
+      {key:'title',   label:'العنوان',          type:'text'},
+      {key:'source',  label:'المصدر',           type:'text'},
+      {key:'duration',label:'المدة (دقيقة)',    type:'number'},
+      {key:'date',    label:'تاريخ الاستماع',   type:'date'}
+    ]}
   ]
 };
-let S = {pi:0, brk:false, run:false, tl:0, tot:0, iv:null, endTime:0, log:[], pkgStates:{}};
+let S = {pi:0, brk:false, run:false, tl:0, tot:0, iv:null, endTime:0, log:[], pkgStates:{}, achievements:[]};
 let dark=true, currentTheme='amber';
 const CIRC = 603.19;
 
@@ -513,6 +614,7 @@ function showPage(n,b){
   document.getElementById('page-'+n).classList.add('active');
   if(b) b.classList.add('active');
   if(n==='stats')    renderStats();
+  if(n==='ach')      renderAch();
   if(n==='settings') renderSettings();
 }
 
@@ -873,7 +975,7 @@ function exportExcel(){
 }
 function exportBackup(){
   try{
-    const payload={app:'wird',version:2,exportedAt:new Date().toISOString(),log:S.log,config:C,pkgStates:S.pkgStates,pi:S.pi};
+    const payload={app:'wird',version:3,exportedAt:new Date().toISOString(),log:S.log,config:C,pkgStates:S.pkgStates,achievements:S.achievements,pi:S.pi};
     const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob); const a=document.createElement('a');
     a.href=url; a.download='wird_backup_'+new Date().toISOString().slice(0,10)+'.json';
@@ -914,9 +1016,20 @@ function importJSON(d){
     d.log.forEach(en=>{ const k=logKey(en); if(!ex.has(k)){ S.log.push(en); ex.add(k); added++; } });
   }
   if(d.pkgStates){ Object.keys(d.pkgStates).forEach(id=>{ if(!S.pkgStates[id]) S.pkgStates[id]=d.pkgStates[id]; }); }
+  // أنواع الإنجازات (دمج بالمعرّف)
+  const atypes = (d.config&&d.config.achTypes) || d.achTypes;
+  if(Array.isArray(atypes)){
+    const tids=new Set(C.achTypes.map(t=>t.id));
+    atypes.forEach(t=>{ if(!tids.has(t.id)){ C.achTypes.push(t); tids.add(t.id); } });
+  }
+  // الإنجازات (دمج بالمعرّف)
+  if(Array.isArray(d.achievements)){
+    const aex=new Set(S.achievements.map(a=>a.id));
+    d.achievements.forEach(a=>{ if(!aex.has(a.id)){ S.achievements.push(a); aex.add(a.id); added++; } });
+  }
   S.log.sort((a,b)=>new Date(a.date)-new Date(b.date));
   scheduleSave(); renderStats(); upPkg(); upSide();
-  showToast('تم الاستيراد ✓ ('+added+' جلسة جديدة)');
+  showToast('تم الاستيراد ✓ ('+added+' عنصر جديد)');
 }
 function importRows(rows){
   let added=0;
@@ -940,6 +1053,282 @@ function importRows(rows){
   showToast('تم الاستيراد ✓ ('+added+' جلسة)');
 }
 
+// ══ ACHIEVEMENTS / تتبّع الإنجازات ══
+let achYear = new Date().getFullYear();
+let achFilter = 'all';
+let achEditId = null;
+const ACH_COLORS=['#c8a96e','#4a9e6a','#4a7ec4','#c45a7a','#8a5ac4','#d98a3a','#3aa0a0','#b06ad0'];
+
+function achType(id){ return C.achTypes.find(t=>t.id===id) }
+function typeColor(id){ const i=C.achTypes.findIndex(t=>t.id===id); return ACH_COLORS[(i<0?0:i)%ACH_COLORS.length] }
+function achDate(a){
+  const t=achType(a.typeId);
+  if(t){
+    if(t.dateKey && a.data && a.data[t.dateKey]) return a.data[t.dateKey];
+    const df=(t.fields||[]).find(f=>f.type==='date' && a.data && a.data[f.key]);
+    if(df) return a.data[df.key];
+  }
+  return a.createdAt;
+}
+function achTitle(a){
+  const t=achType(a.typeId); if(!t||!a.data) return 'بدون عنوان';
+  const tf=(t.fields||[]).find(f=>f.type==='text');
+  return (tf && a.data[tf.key]) ? a.data[tf.key] : 'بدون عنوان';
+}
+function achYears(){
+  const ys=new Set(S.achievements.map(a=>new Date(achDate(a)).getFullYear()).filter(y=>!isNaN(y)));
+  ys.add(new Date().getFullYear());
+  return [...ys].sort((a,b)=>b-a);
+}
+function achInYear(y){
+  return S.achievements.filter(a=>{ const d=new Date(achDate(a)); return !isNaN(d) && d.getFullYear()===y; });
+}
+
+function shiftYear(d){ achYear+=d; renderAch(); }
+
+function renderAch(){
+  document.getElementById('ach-year').textContent = achYear;
+  document.getElementById('ach-year-lbl').textContent = '('+achYear+')';
+  const inYear = achInYear(achYear);
+
+  // بطاقات العدّ لكل نوع
+  const cards=document.getElementById('ach-cards'); cards.innerHTML='';
+  C.achTypes.forEach(t=>{
+    const n=inYear.filter(a=>a.typeId===t.id).length;
+    const el=document.createElement('div'); el.className='ach-card';
+    el.style.borderColor='transparent';
+    el.innerHTML=`<div class="ach-card-ic" style="background:${typeColor(t.id)}22;color:${typeColor(t.id)}">${t.icon||'⭐'}</div>
+      <div class="ach-card-v">${n}</div><div class="ach-card-l">${t.name}</div>`;
+    cards.appendChild(el);
+  });
+
+  renderAchTimeline(inYear);
+  renderAchFilters(inYear);
+  renderAchList(inYear);
+}
+
+function renderAchTimeline(inYear){
+  const chart=document.getElementById('ach-chart'); chart.innerHTML='';
+  const months=['ينا','فبر','مار','أبر','ماي','يون','يول','أغس','سبت','أكت','نوف','ديس'];
+  // count[month][typeId]
+  const counts=months.map(()=>({}));
+  let maxVal=1;
+  inYear.forEach(a=>{ const d=new Date(achDate(a)); const m=d.getMonth(); counts[m][a.typeId]=(counts[m][a.typeId]||0)+1; });
+  counts.forEach(c=>{ const tot=Object.values(c).reduce((x,y)=>x+y,0); maxVal=Math.max(maxVal,tot); });
+  const now=new Date();
+  counts.forEach((c,mi)=>{
+    const tot=Object.values(c).reduce((x,y)=>x+y,0);
+    const isCur=(achYear===now.getFullYear() && mi===now.getMonth());
+    const col=document.createElement('div'); col.className='bcol';
+    let seg='';
+    C.achTypes.forEach(t=>{ const v=c[t.id]||0; if(v>0){ const h=Math.round((v/maxVal)*100); seg+=`<div class="bf" style="height:${h}%;background:${typeColor(t.id)};opacity:.9" title="${t.name}: ${v}"></div>`; } });
+    col.innerHTML=`<div class="bst">${seg||'<div class="bf" style="height:0"></div>'}</div><div class="bll" style="${isCur?'color:var(--ac);font-weight:700':''}">${months[mi]}${tot?` · ${tot}`:''}</div>`;
+    chart.appendChild(col);
+  });
+  const lg=document.getElementById('ach-legend'); lg.innerHTML='';
+  C.achTypes.forEach(t=>{ lg.innerHTML+=`<div class="legend-item"><div class="legend-dot" style="background:${typeColor(t.id)}"></div>${t.name}</div>`; });
+}
+
+function renderAchFilters(inYear){
+  const f=document.getElementById('ach-filters'); f.innerHTML='';
+  const mk=(id,label)=>`<button class="fb${achFilter===id?' active':''}" onclick="setAchFilter('${id}')">${label}</button>`;
+  let html=mk('all','الكل');
+  C.achTypes.forEach(t=>{ if(inYear.some(a=>a.typeId===t.id)) html+=mk(t.id,(t.icon||'')+' '+t.name); });
+  f.innerHTML=html;
+}
+function setAchFilter(id){ achFilter=id; renderAch(); }
+
+function renderAchList(inYear){
+  const c=document.getElementById('ach-list');
+  let items=inYear.slice();
+  if(achFilter!=='all') items=items.filter(a=>a.typeId===achFilter);
+  items.sort((a,b)=> new Date(achDate(b))-new Date(achDate(a)));
+  if(!items.length){ c.innerHTML='<div class="el">لا إنجازات في '+achYear+' — أضف إنجازك الأول بزر «إضافة إنجاز»</div>'; return; }
+  c.innerHTML='';
+  items.forEach(a=>{
+    const t=achType(a.typeId); if(!t) return;
+    const col=typeColor(a.typeId);
+    const dt=new Date(achDate(a));
+    const dstr=isNaN(dt)?'':dt.toLocaleDateString('ar-SA',{year:'numeric',month:'short',day:'numeric'});
+    // حقول فرعية (غير العنوان) المملوءة
+    const tf=(t.fields||[]).find(f=>f.type==='text');
+    const meta=(t.fields||[]).filter(f=> f!==tf && a.data && a.data[f.key]!=='' && a.data[f.key]!=null)
+      .map(f=>`<span class="ai-m"><span class="ai-mk">${f.label}:</span> ${a.data[f.key]}</span>`).join('');
+    const card=document.createElement('div'); card.className='ai';
+    card.innerHTML=`
+      <div class="ai-ic" style="background:${col}22;color:${col}">${t.icon||'⭐'}</div>
+      <div class="ai-body">
+        <div class="ai-h"><span class="ai-t">${achTitle(a)}</span><span class="ai-type" style="color:${col}">${t.name}</span></div>
+        <div class="ai-meta">${meta||'<span class="ai-m" style="color:var(--tx3)">لا تفاصيل</span>'}</div>
+        ${dstr?`<div class="ai-date">${dstr}</div>`:''}
+      </div>
+      <div class="ai-act">
+        <button class="ib ai-edit" title="تعديل">${svgIcon('<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/>',13)}</button>
+        <button class="ib d ai-del" title="حذف">${svgIcon(SVG_TRASH,13)}</button>
+      </div>`;
+    card.querySelector('.ai-edit').addEventListener('click',()=>openAchForm(a.id));
+    card.querySelector('.ai-del').addEventListener('click',()=>deleteAch(a.id));
+    c.appendChild(card);
+  });
+}
+
+// ── نموذج الإضافة/التعديل ──
+function openAchForm(id){
+  achEditId = id||null;
+  const editing = !!id;
+  const a = editing ? S.achievements.find(x=>x.id===id) : null;
+  const curType = a ? a.typeId : (C.achTypes[0] && C.achTypes[0].id);
+  const ov=document.createElement('div'); ov.className='overlay'; ov.id='ach-modal';
+  ov.innerHTML=`<div class="ach-form">
+    <div class="af-h">${editing?'تعديل إنجاز':'إضافة إنجاز'}</div>
+    <div class="fr"><div class="fl">النوع</div>
+      <select class="fi" id="af-type" onchange="renderAchFields()">${C.achTypes.map(t=>`<option value="${t.id}"${t.id===curType?' selected':''}>${(t.icon||'')} ${t.name}</option>`).join('')}</select>
+    </div>
+    <div id="af-fields"></div>
+    <div class="af-btns">
+      <button class="bsm" onclick="closeAchForm()">إلغاء</button>
+      <button class="bsm bpr" onclick="saveAch()">${svgIcon(SVG_CHECK,13)} حفظ</button>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+  renderAchFields();
+}
+function renderAchFields(){
+  const tid=document.getElementById('af-type').value;
+  const t=achType(tid); const box=document.getElementById('af-fields'); box.innerHTML='';
+  const a = achEditId ? S.achievements.find(x=>x.id===achEditId) : null;
+  const data = (a && a.typeId===tid && a.data) ? a.data : {};
+  (t.fields||[]).forEach(f=>{
+    const v = data[f.key]!=null ? String(data[f.key]).replace(/"/g,'&quot;') : '';
+    box.innerHTML+=`<div class="fr"><div class="fl">${f.label}</div><input class="fi af-in" data-key="${f.key}" data-kind="${f.type}" type="${f.type==='number'?'number':(f.type==='date'?'date':'text')}" value="${v}"></div>`;
+  });
+}
+function saveAch(){
+  const tid=document.getElementById('af-type').value;
+  const t=achType(tid); if(!t) return;
+  const data={};
+  document.querySelectorAll('#af-fields .af-in').forEach(inp=>{
+    let val=inp.value.trim();
+    if(inp.dataset.kind==='number') val = val===''?'':(parseFloat(val)||0);
+    data[inp.dataset.key]=val;
+  });
+  const tf=(t.fields||[]).find(f=>f.type==='text');
+  if(tf && !data[tf.key]){ showToast('أدخل '+tf.label+' على الأقل'); return; }
+  let savedItem;
+  if(achEditId){
+    const a=S.achievements.find(x=>x.id===achEditId);
+    if(a){ a.typeId=tid; a.data=data; savedItem=a; }
+  } else {
+    savedItem={id:'ach_'+Date.now()+'_'+Math.floor(Math.random()*1000), typeId:tid, data, createdAt:new Date().toISOString()};
+    S.achievements.push(savedItem);
+  }
+  const wasEdit = !!achEditId;
+  closeAchForm();
+  if(savedItem){ const y=new Date(achDate(savedItem)).getFullYear(); if(!isNaN(y)) achYear=y; }
+  scheduleSave(); renderAch();
+  showToast(wasEdit?'تم تحديث الإنجاز ✓':'تم تسجيل الإنجاز ✓');
+}
+function closeAchForm(){ const m=document.getElementById('ach-modal'); if(m) m.remove(); achEditId=null; }
+function deleteAch(id){
+  if(!confirm('حذف هذا الإنجاز؟')) return;
+  S.achievements=S.achievements.filter(a=>a.id!==id);
+  scheduleSave(); renderAch(); showToast('تم الحذف');
+}
+
+// ── تصدير الإنجازات (ورقة لكل نوع) ──
+function sanitizeSheet(n){ return (n||'نوع').replace(/[:\\/?*\[\]]/g,' ').slice(0,28) || 'نوع'; }
+function exportAch(){
+  if(!S.achievements.length){ showToast('لا إنجازات للتصدير'); return; }
+  try{
+    const wb=XLSX.utils.book_new();
+    C.achTypes.forEach(t=>{
+      const rows=S.achievements.filter(a=>a.typeId===t.id).map(a=>{
+        const o={};
+        (t.fields||[]).forEach(f=>{ o[f.label]= a.data? (a.data[f.key]??'') : ''; });
+        o['السنة']=new Date(achDate(a)).getFullYear();
+        return o;
+      });
+      if(rows.length){
+        const ws=XLSX.utils.json_to_sheet(rows);
+        XLSX.utils.book_append_sheet(wb, ws, sanitizeSheet(t.name));
+      }
+    });
+    if(!wb.SheetNames.length){ showToast('لا إنجازات للتصدير'); return; }
+    XLSX.writeFile(wb,'wird_achievements_'+new Date().toISOString().slice(0,10)+'.xlsx');
+    showToast('تم التصدير بنجاح ✓');
+  }catch(e){ console.error(e); showToast('خطأ في التصدير'); }
+}
+
+// ── محرّر أنواع الإنجازات (الإعدادات) ──
+function renderAchTypes(){
+  const c=document.getElementById('atedit'); if(!c) return; c.innerHTML='';
+  const trashSVG=svgIcon(SVG_TRASH,14);
+  C.achTypes.forEach((t,ti)=>{
+    const dateOpts=(t.fields||[]).filter(f=>f.type==='date')
+      .map(f=>`<option value="${f.key}"${t.dateKey===f.key?' selected':''}>${f.label}</option>`).join('');
+    const fieldsHtml=(t.fields||[]).map((f,fi)=>`
+      <div class="atf">
+        <input class="fi" style="flex:1;padding:5px 9px;font-size:12px" value="${(f.label||'').replace(/"/g,'&quot;')}" onchange="atFieldLabel(${ti},${fi},this.value)">
+        <select class="fi" style="width:auto;padding:5px 7px;font-size:12px" onchange="atFieldKind(${ti},${fi},this.value)">
+          <option value="text"${f.type==='text'?' selected':''}>نص</option>
+          <option value="number"${f.type==='number'?' selected':''}>رقم</option>
+          <option value="date"${f.type==='date'?' selected':''}>تاريخ</option>
+        </select>
+        <button class="ib d" onclick="atDelField(${ti},${fi})">${svgIcon(SVG_TRASH,12)}</button>
+      </div>`).join('');
+    const div=document.createElement('div'); div.className='pe';
+    div.innerHTML=`
+      <div class="peh">
+        <div style="display:flex;gap:6px;align-items:center;flex:1">
+          <input class="fi" style="width:54px;padding:5px;font-size:16px;text-align:center" value="${t.icon||'⭐'}" onchange="atIcon(${ti},this.value)">
+          <input class="fi" style="flex:1;max-width:180px;padding:5px 10px;font-size:13px" value="${(t.name||'').replace(/"/g,'&quot;')}" onchange="atName(${ti},this.value)">
+        </div>
+        <button class="ib d" onclick="delAchType(${ti})">${trashSVG}</button>
+      </div>
+      <div class="atfields">${fieldsHtml||'<div class="dpk-empty">لا حقول</div>'}</div>
+      <div class="asr" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <button class="bsm" onclick="atAddField(${ti})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> إضافة حقل</button>
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:11px;color:var(--tx3)">📅 حقل تاريخ الإحصاء:</span>
+          <select class="fi" style="width:auto;padding:5px 8px;font-size:12px" onchange="atDateKey(${ti},this.value)">${dateOpts||'<option value="">— لا يوجد —</option>'}</select>
+        </div>
+      </div>`;
+    c.appendChild(div);
+  });
+}
+function uid(p){ return p+Date.now().toString(36)+Math.floor(Math.random()*1000) }
+function atName(ti,v){ C.achTypes[ti].name=v }
+function atIcon(ti,v){ C.achTypes[ti].icon=v||'⭐' }
+function atFieldLabel(ti,fi,v){ C.achTypes[ti].fields[fi].label=v }
+function atFieldKind(ti,fi,v){
+  C.achTypes[ti].fields[fi].type=v; renderAchTypes();
+}
+function atDelField(ti,fi){
+  const t=C.achTypes[ti];
+  const removed=t.fields[fi].key;
+  t.fields.splice(fi,1);
+  if(t.dateKey===removed) t.dateKey=(t.fields.find(f=>f.type==='date')||{}).key||'';
+  renderAchTypes();
+}
+function atAddField(ti){
+  C.achTypes[ti].fields.push({key:uid('f_'),label:'حقل جديد',type:'text'});
+  renderAchTypes();
+}
+function atDateKey(ti,v){ C.achTypes[ti].dateKey=v }
+function addAchType(){
+  C.achTypes.push({id:uid('t_'),name:'نوع جديد',icon:'⭐',dateKey:'date',fields:[
+    {key:'title',label:'العنوان',type:'text'},
+    {key:'date',label:'التاريخ',type:'date'}
+  ]});
+  renderAchTypes();
+}
+function delAchType(ti){
+  if(C.achTypes.length<=1){ showToast('يجب أن يبقى نوع واحد على الأقل'); return; }
+  const t=C.achTypes[ti];
+  const used=S.achievements.some(a=>a.typeId===t.id);
+  if(used && !confirm('هذا النوع له إنجازات مسجّلة. حذفه سيُبقي الإنجازات بدون نوع. متابعة؟')) return;
+  C.achTypes.splice(ti,1); renderAchTypes();
+}
+
 // ══ SETTINGS ══
 function renderSettings(){
   document.getElementById('cr').value = C.readDuration;
@@ -947,7 +1336,7 @@ function renderSettings(){
   document.getElementById('cb').value = C.breakDuration;
   document.getElementById('cs').value = C.sound;
   document.getElementById('ca').value = C.autostart;
-  setTheme(currentTheme); renderPE();
+  setTheme(currentTheme); renderPE(); renderAchTypes();
 }
 function renderPE(){
   const c=document.getElementById('pedit'); c.innerHTML='';
