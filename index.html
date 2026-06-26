@@ -131,6 +131,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .bf{width:100%;border-radius:3px 3px 0 0;min-height:2px;transition:height .6s ease}
 .bf.rb{background:var(--gr);opacity:.85}.bf.mb{background:var(--bl);opacity:.85}
 .bll{font-size:10px;color:var(--tx3)}
+.bval{font-size:10px;color:var(--tx2);font-family:var(--mn);min-height:13px;line-height:1}
+.fb{padding:4px 12px;border-radius:50px;border:1px solid var(--bd);background:transparent;color:var(--tx3);font-family:var(--fn);font-size:11px;cursor:pointer;transition:all .2s}
+.fb:hover:not(.active){color:var(--tx);border-color:var(--bd2)}
+.fb.active{background:var(--ac);border-color:var(--ac);color:#0a0a0f;font-weight:600}
 .chart-legend{display:flex;gap:16px;margin-top:10px}
 .legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--tx3)}
 .legend-dot{width:8px;height:8px;border-radius:50%}
@@ -352,7 +356,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
     <div class="scard"><div class="sv2" id="st-week">0</div><div class="sl">جلسات الأسبوع</div></div>
   </div>
   <div class="cc">
-    <div class="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>آخر 7 أيام</div>
+    <div class="ct" style="justify-content:space-between">
+      <span style="display:flex;align-items:center;gap:7px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>آخر 7 أيام · زمن الإنجاز</span>
+      <span id="wk-unit" style="display:flex;gap:4px">
+        <button class="fb active" onclick="setWeekUnit('min')">دقائق</button>
+        <button class="fb" onclick="setWeekUnit('hr')">ساعات</button>
+      </span>
+    </div>
     <div class="bc" id="wchart"></div>
     <div class="chart-legend">
       <div class="legend-item"><div class="legend-dot" style="background:var(--gr)"></div>قراءة</div>
@@ -878,6 +888,17 @@ function renderStats(){
   renderWeekChart(); renderDashboard();
 }
 
+let weekUnit='min';
+function setWeekUnit(u){
+  weekUnit=u;
+  document.querySelectorAll('#wk-unit .fb').forEach(b=>b.classList.toggle('active', b.textContent.trim()===(u==='hr'?'ساعات':'دقائق')));
+  renderWeekChart();
+}
+function fmtDur(min){
+  if(!min) return '';
+  if(weekUnit==='hr'){ const h=min/60; return (Math.round(h*10)/10)+'س'; }
+  return min+'د';
+}
 function renderWeekChart(){
   const chart=document.getElementById('wchart'); chart.innerHTML='';
   const days=['أحد','إثن','ثلا','أرب','خمس','جمع','سبت'];
@@ -885,15 +906,17 @@ function renderWeekChart(){
   for(let i=6;i>=0;i--){
     const d=new Date(now); d.setDate(now.getDate()-i);
     const ds=d.toDateString();
-    const r=S.log.filter(s=>new Date(s.date).toDateString()===ds&&s.type==='read').length;
-    const m=S.log.filter(s=>new Date(s.date).toDateString()===ds&&s.type==='memo').length;
+    const dayLog=S.log.filter(s=>new Date(s.date).toDateString()===ds);
+    const r=dayLog.filter(s=>s.type==='read').reduce((a,s)=>a+s.duration,0); // دقائق القراءة
+    const m=dayLog.filter(s=>s.type==='memo').reduce((a,s)=>a+s.duration,0); // دقائق الحفظ
     maxVal=Math.max(maxVal,r+m,1); weekData.push({d,r,m});
   }
   weekData.forEach(({d,r,m})=>{
+    const tot=r+m;
     const rh=Math.round((r/maxVal)*100); const mh=Math.round((m/maxVal)*100);
     const isToday=d.toDateString()===now.toDateString();
     const col=document.createElement('div'); col.className='bcol';
-    col.innerHTML=`<div class="bst"><div class="bf mb" style="height:${mh}%"></div><div class="bf rb" style="height:${rh}%"></div></div><div class="bll" style="${isToday?'color:var(--ac);font-weight:700':''}">${days[d.getDay()]}</div>`;
+    col.innerHTML=`<div class="bval">${fmtDur(tot)}</div><div class="bst"><div class="bf mb" style="height:${mh}%"></div><div class="bf rb" style="height:${rh}%"></div></div><div class="bll" style="${isToday?'color:var(--ac);font-weight:700':''}">${days[d.getDay()]}</div>`;
     chart.appendChild(col);
   });
 }
