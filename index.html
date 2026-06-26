@@ -61,7 +61,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .rc{position:relative;width:220px;height:220px;cursor:pointer;user-select:none}
 .rsvg{width:220px;height:220px;transform:rotate(-90deg)}
 .rtrk{fill:none;stroke:var(--bg3);stroke-width:10}
-.rprg{fill:none;stroke:var(--ac);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.rprg{fill:none;stroke:var(--ac);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .3s linear}
 .rprg.brk{stroke:var(--bl)}
 .rcenter{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;pointer-events:none}
 .ctime{font-family:var(--mn);font-size:42px;font-weight:700;color:var(--tx);line-height:1;letter-spacing:-2px}
@@ -74,7 +74,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .rc:hover .rov{opacity:1}
 .rov svg{width:22px;height:22px;color:var(--ac)}
 
-.ctrlrow{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:16px}
+.ctrlrow{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:12px}
 .cside{background:var(--bg3);border:1px solid var(--bd);color:var(--tx2);width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .cside:hover{border-color:var(--bd2);color:var(--tx)}
 .cside:active{transform:scale(.95)}
@@ -82,6 +82,14 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .cpbtn{width:58px;height:58px;border-radius:50%;background:var(--ac);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#0a0a0f;transition:all .2s}
 .cpbtn:hover{background:var(--ac2)}.cpbtn:active{transform:scale(.95)}
 .cpbtn svg{width:25px;height:25px}
+
+/* minute-adjust control */
+.mctrl{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px}
+.mbtn{background:var(--bg3);border:1px solid var(--bd);color:var(--tx2);padding:6px 15px;border-radius:50px;cursor:pointer;font-family:var(--fn);font-size:12px;display:flex;align-items:center;gap:5px;transition:all .2s}
+.mbtn:hover{border-color:var(--bd2);color:var(--ac)}
+.mbtn:active{transform:scale(.96)}
+.mbtn svg{width:13px;height:13px}
+.mhint{font-size:11px;color:var(--tx3);letter-spacing:.5px}
 
 .sdots{display:flex;gap:5px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
 .sd{width:25px;height:25px;border-radius:50%;border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--tx3);transition:all .3s;cursor:pointer}
@@ -132,28 +140,31 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 .lt{font-size:14px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:7px}
 .lt svg{color:var(--ac);width:15px;height:15px}
 .la{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.fb{padding:5px 11px;border-radius:50px;border:1px solid var(--bd);background:transparent;color:var(--tx3);font-family:var(--fn);font-size:11px;cursor:pointer;transition:all .2s}
-.fb.active{background:var(--ac);border-color:var(--ac);color:#0a0a0f;font-weight:600}
-.view-toggle{display:flex;gap:3px;background:var(--bg3);border-radius:50px;padding:3px;border:1px solid var(--bd)}
-.vt{padding:4px 12px;border-radius:50px;border:none;background:transparent;color:var(--tx3);font-family:var(--fn);font-size:11px;cursor:pointer;transition:all .2s}
-.vt.active{background:var(--ac);color:#0a0a0f;font-weight:600}
 .eb{padding:6px 13px;border-radius:50px;border:1px solid var(--bd2);background:transparent;color:var(--ac);font-family:var(--fn);font-size:12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;font-weight:500}
 .eb:hover{background:rgba(200,169,110,.1)}.eb svg{width:14px;height:14px}
-.ltbl{width:100%;border-collapse:collapse;table-layout:fixed}
-.ltbl th{text-align:right;font-size:11px;color:var(--tx3);letter-spacing:1px;padding:0 8px 9px;font-weight:500;border-bottom:1px solid var(--bd)}
-.ltbl td{padding:8px;font-size:13px;color:var(--tx2);border-bottom:1px solid rgba(200,169,110,.06);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ltbl tr:last-child td{border-bottom:none}.ltbl tr:hover td{color:var(--tx);background:var(--bg3)}
-.tp{display:inline-block;padding:2px 8px;border-radius:50px;font-size:10px;font-weight:600}
 .el{text-align:center;padding:34px;color:var(--tx3);font-size:14px}
+.hidden-file{display:none}
 
-.pkg-log-card{background:var(--bg3);border-radius:var(--r);padding:14px;margin-bottom:10px;border:1px solid var(--bd)}
-.pkg-log-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.pkg-log-name{font-size:14px;font-weight:600;color:var(--tx)}
-.pkg-log-stats{display:flex;gap:10px;align-items:center}
-.pkg-log-stat{font-size:11px;color:var(--tx3);display:flex;align-items:center;gap:4px}
-.pkg-log-sessions{display:flex;flex-wrap:wrap;gap:4px}
-.pls{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:600}
-.pls.r{background:rgba(74,158,106,.2);color:var(--gr)}.pls.m{background:rgba(74,126,196,.2);color:var(--bl)}
+/* package dashboard */
+.dash{display:flex;flex-direction:column;gap:12px}
+.dpk{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:16px}
+.dpk-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.dpk-name{font-size:15px;font-weight:600;color:var(--tx)}
+.dpk-rt{display:flex;align-items:center;gap:8px}
+.dpk-badge{padding:3px 11px;border-radius:50px;font-size:11px;font-weight:600;background:rgba(200,169,110,.12);border:1px solid var(--bd);color:var(--ac);white-space:nowrap}
+.dpk-meta{display:flex;gap:14px;font-size:12px;color:var(--tx3);margin-bottom:8px;flex-wrap:wrap}
+.dpk-meta b{color:var(--tx2);font-family:var(--mn)}
+.dpk-cyc{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--tx3);margin-bottom:5px}
+.dpk-bar{height:6px;background:var(--bg4);border-radius:6px;overflow:hidden;margin-bottom:4px}
+.dpk-bar-fill{height:100%;background:var(--ac);border-radius:6px;transition:width .5s}
+.dpk-comps{display:flex;flex-direction:column;gap:6px;margin-top:12px;border-top:1px solid var(--bd);padding-top:12px}
+.dpk-comps-h{font-size:11px;letter-spacing:1px;color:var(--tx3);margin-bottom:2px}
+.dpk-comp{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--tx2)}
+.dpk-comp-i{display:flex;align-items:center;gap:8px}
+.dpk-comp-dot{width:20px;height:20px;border-radius:50%;background:rgba(74,158,106,.18);color:var(--gr);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dpk-comp-dot svg{width:11px;height:11px}
+.dpk-comp-date{color:var(--tx3);font-size:11px;font-family:var(--mn)}
+.dpk-empty{font-size:12px;color:var(--tx3);padding:4px 0}
 
 .cfg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .cfgc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:20px}
@@ -207,6 +218,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
 
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ac);color:#0a0a0f;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;transition:transform .3s;z-index:200;pointer-events:none;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
+
+@media(max-width:680px){
+  .tl{grid-template-columns:1fr}
+  .sgrid{grid-template-columns:1fr 1fr}
+  .cfg{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body class="t-amber">
@@ -218,7 +235,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>المؤقت
     </button>
     <button class="ntab" onclick="showPage('stats',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>إحصائيات
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>الداشبورد
     </button>
     <button class="ntab" onclick="showPage('settings',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>إعدادات
@@ -253,9 +270,15 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
         </div>
       </div>
       <div class="ctrlrow">
-        <button class="cside" onclick="resetTimer()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.53"/></svg></button>
+        <button class="cside" onclick="undoSession()" title="تراجع عن آخر جلسة مكتملة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg></button>
+        <button class="cside" onclick="resetTimer()" title="إعادة الجلسة الحالية"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.53"/></svg></button>
         <button class="cpbtn" onclick="toggleTimer()"><svg id="picon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
-        <button class="cside" onclick="skipSession()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button>
+        <button class="cside" onclick="skipSession()" title="تخطّي للجلسة التالية"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button>
+      </div>
+      <div class="mctrl">
+        <button class="mbtn" onclick="adjustTime(-1)" title="خصم دقيقة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>دقيقة</button>
+        <span class="mhint">تعديل الوقت</span>
+        <button class="mbtn" onclick="adjustTime(1)" title="إضافة دقيقة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>دقيقة</button>
       </div>
       <div class="sdots" id="sdots"></div>
       <div class="pswitch">
@@ -278,13 +301,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
   </div>
 </div>
 
-<!-- STATS -->
+<!-- DASHBOARD -->
 <div class="page" id="page-stats">
   <div class="sgrid">
-    <div class="scard"><div class="sv2" id="ts1">0</div><div class="sl">إجمالي الجلسات</div></div>
-    <div class="scard"><div class="sv2" id="th">0</div><div class="sl">إجمالي الساعات</div></div>
-    <div class="scard"><div class="sv2" id="tr2">0</div><div class="sl">جلسات قراءة</div></div>
-    <div class="scard"><div class="sv2" id="tm2">0</div><div class="sl">جلسات حفظ</div></div>
+    <div class="scard"><div class="sv2" id="st-comps">0</div><div class="sl">بكجات مكتملة</div></div>
+    <div class="scard"><div class="sv2" id="st-hours">0</div><div class="sl">إجمالي الساعات</div></div>
+    <div class="scard"><div class="sv2" id="st-streak">0</div><div class="sl">أيام متتالية</div></div>
+    <div class="scard"><div class="sv2" id="st-week">0</div><div class="sl">جلسات الأسبوع</div></div>
   </div>
   <div class="cc">
     <div class="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>آخر 7 أيام</div>
@@ -296,21 +319,15 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0
   </div>
   <div class="slog">
     <div class="lh">
-      <div class="lt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>السجل</div>
+      <div class="lt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>تتبّع البكجات</div>
       <div class="la">
-        <div class="view-toggle">
-          <button class="vt active" onclick="setView('sessions',this)">الجلسات</button>
-          <button class="vt" onclick="setView('packages',this)">البكجات</button>
-        </div>
+        <button class="eb" onclick="document.getElementById('import-file').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>استيراد</button>
+        <button class="eb" onclick="exportBackup()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>نسخة احتياطية</button>
         <button class="eb" onclick="exportExcel()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>تصدير Excel</button>
+        <input type="file" id="import-file" class="hidden-file" accept=".json,.xlsx,.xls" onchange="handleImportFile(event)">
       </div>
     </div>
-    <div id="filter-row" style="display:flex;gap:3px;margin-bottom:12px">
-      <button class="fb active" onclick="filterLog('all',this)">الكل</button>
-      <button class="fb" onclick="filterLog('read',this)">قراءة</button>
-      <button class="fb" onclick="filterLog('memo',this)">حفظ</button>
-    </div>
-    <div id="logc"></div>
+    <div id="dash" class="dash"></div>
   </div>
 </div>
 
@@ -437,6 +454,26 @@ function localLoad(){
     if(d.pi !== undefined)  S.pi        = d.pi;
   }catch(e){}
 }
+// حالة المؤقت الحيّة (محلية فقط — لاستعادة الجلسة الجارية بعد إعادة التحميل)
+function saveLive(){
+  try{ localStorage.setItem('wird_live', JSON.stringify({run:S.run, endTime:S.endTime, tl:S.tl, tot:S.tot, brk:S.brk, pi:S.pi})); }catch(e){}
+}
+function loadLive(){
+  try{
+    const raw = localStorage.getItem('wird_live'); if(!raw) return false;
+    const d = JSON.parse(raw);
+    if(typeof d.pi === 'number') S.pi = d.pi;
+    S.brk = !!d.brk;
+    if(d.tot) S.tot = d.tot;
+    if(d.run && d.endTime && d.endTime > Date.now()){
+      S.tl = Math.round((d.endTime - Date.now())/1000);
+      S.endTime = d.endTime;
+      return 'resume';
+    }
+    if(typeof d.tl === 'number') S.tl = d.tl;
+  }catch(e){}
+  return false;
+}
 
 // ══ STATE ══
 // بكج واحد افتراضي — أضف المزيد من صفحة الإعدادات
@@ -447,8 +484,8 @@ let C = {
     {id:1, name:'البكج الأول', sessions:['read','read','read','memo','read','read','read','memo']}
   ]
 };
-let S = {pi:0, brk:false, run:false, tl:0, tot:0, iv:null, log:[], pkgStates:{}};
-let dark=true, currentTheme='amber', logView='sessions', logFilter='all';
+let S = {pi:0, brk:false, run:false, tl:0, tot:0, iv:null, endTime:0, log:[], pkgStates:{}};
+let dark=true, currentTheme='amber';
 const CIRC = 603.19;
 
 const SVG_PLAY  = '<polygon points="5 3 19 12 5 21 5 3"/>';
@@ -456,6 +493,7 @@ const SVG_PAUSE = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" w
 const SVG_EYE   = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
 const SVG_BOOK  = '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>';
 const SVG_TRASH = '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M9 6V4h6v2"/>';
+const SVG_CHECK = '<polyline points="20 6 9 17 4 12"/>';
 function svgIcon(path,size=16){ return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${path}</svg>` }
 
 function getPkgSI(){
@@ -464,13 +502,8 @@ function getPkgSI(){
 }
 function setPkgSI(v){
   const p=pkg(); if(!p) return;
-  if(!S.pkgStates[p.id]) S.pkgStates[p.id]={si:0,done:[]};
+  if(!S.pkgStates[p.id]) S.pkgStates[p.id]={si:0};
   S.pkgStates[p.id].si = v;
-}
-function addPkgDone(entry){
-  const p=pkg(); if(!p) return;
-  if(!S.pkgStates[p.id]) S.pkgStates[p.id]={si:0,done:[]};
-  S.pkgStates[p.id].done.push(entry);
 }
 
 // ══ NAV ══
@@ -524,21 +557,51 @@ function playSound(type){
 }
 function previewSound(){ playSound(document.getElementById('cs').value) }
 
-// ══ TIMER ══
+// ══ TIMER (توقيت يعتمد على الوقت الفعلي — لا يتأثر بالتنقل بين الصفحات) ══
 function pkg(){ return C.packages[S.pi] }
 function stype(){ const p=pkg(); if(!p||!p.sessions.length) return 'read'; return p.sessions[getPkgSI()]||'read' }
 function sdur(t){ if(S.brk) return C.breakDuration*60; return (t==='memo'?C.memoDuration:C.readDuration)*60 }
-function init(){ const t=S.brk?'break':stype(); S.tot=sdur(t); S.tl=S.tot; upDisp(); upDots(); upPkg(); upSide() }
+function init(){ const t=S.brk?'break':stype(); S.tot=sdur(t); S.tl=S.tot; S.endTime=0; upDisp(); upDots(); upPkg(); upSide() }
 
-function toggleTimer(){
-  if(S.run){ clearInterval(S.iv); S.run=false; setPI(false) }
-  else{ S.run=true; setPI(true); S.iv=setInterval(tick,1000) }
+function toggleTimer(){ if(S.run) pauseTimer(); else startTimer(); }
+function startTimer(){
+  if(S.tl<=0) return;
+  S.run=true; setPI(true);
+  S.endTime = Date.now() + S.tl*1000;
+  clearInterval(S.iv);
+  S.iv = setInterval(tick, 250);
+  saveLive();
+}
+function pauseTimer(){
+  clearInterval(S.iv); S.run=false; setPI(false);
+  if(S.endTime) S.tl = Math.max(0, Math.round((S.endTime-Date.now())/1000));
+  S.endTime=0; saveLive();
 }
 function setPI(p){
   document.getElementById('picon').innerHTML = p ? SVG_PAUSE : SVG_PLAY;
   document.getElementById('rovi').innerHTML  = p ? SVG_PAUSE : SVG_PLAY;
 }
-function tick(){ S.tl--; upDisp(); if(S.tl<=0){ clearInterval(S.iv); S.run=false; setPI(false); onDone() } }
+function tick(){
+  S.tl = Math.round((S.endTime - Date.now())/1000);
+  if(S.tl<=0){ S.tl=0; upDisp(); clearInterval(S.iv); S.run=false; setPI(false); onDone(); return }
+  upDisp();
+}
+
+// تعديل الدقائق أثناء الجلسة لتصحيح الأخطاء
+function adjustTime(deltaMin){
+  const delta = deltaMin*60;
+  if(S.run){
+    let rem = Math.round((S.endTime-Date.now())/1000) + delta;
+    rem = Math.max(1, rem);
+    S.tot = Math.max(60, S.tot + delta);
+    S.endTime = Date.now() + rem*1000;
+    S.tl = rem;
+  } else {
+    S.tl  = Math.max(1, S.tl + delta);
+    S.tot = Math.max(60, S.tot + delta);
+  }
+  upDisp(); saveLive();
+}
 
 function onDone(){
   playSound(C.sound);
@@ -546,26 +609,44 @@ function onDone(){
     const t=stype(); const p=pkg();
     const entry={type:t, pkgName:p.name, pkgId:p.id, date:new Date().toISOString(), duration:t==='memo'?C.memoDuration:C.readDuration};
     S.log.push(entry);
-    addPkgDone(entry);
     const newSI = getPkgSI()+1;
-    setPkgSI(newSI);
     if(newSI >= p.sessions.length){
       setPkgSI(0);
-      scheduleSave();
+      scheduleSave(); saveLive();
       showCelebration(p.name);
       return;
     }
+    setPkgSI(newSI);
     scheduleSave();
     S.brk = true;
   } else {
     S.brk = false;
-    if(C.autostart==='yes'){ setTimeout(()=>{ init(); toggleTimer() },400); return }
+    if(C.autostart==='yes'){ init(); saveLive(); startTimer(); return }
   }
-  init();
+  init(); saveLive();
 }
 
-function resetTimer(){ clearInterval(S.iv); S.run=false; setPI(false); S.brk=false; init() }
+function resetTimer(){ clearInterval(S.iv); S.run=false; setPI(false); S.brk=false; init(); saveLive() }
 function skipSession(){ clearInterval(S.iv); S.run=false; setPI(false); onDone() }
+
+// التراجع عن آخر جلسة مكتملة (لتصحيح خطأ)
+function undoSession(){
+  const p=pkg(); if(!p) return;
+  const si=getPkgSI();
+  if(si<=0 && !S.brk){ showToast('لا توجد جلسة سابقة للتراجع عنها'); return; }
+  if(!confirm('التراجع عن آخر جلسة مكتملة وحذفها من السجل؟')) return;
+  clearInterval(S.iv); S.run=false; setPI(false);
+  removeLastPkgLog(p.id);
+  setPkgSI(Math.max(0, si-1));
+  S.brk=false;
+  init(); scheduleSave(); saveLive();
+  showToast('تم التراجع عن الجلسة');
+}
+function removeLastPkgLog(pkgId){
+  for(let i=S.log.length-1;i>=0;i--){
+    if(String(S.log[i].pkgId)===String(pkgId)){ S.log.splice(i,1); return; }
+  }
+}
 
 // ══ CELEBRATION ══
 function showCelebration(pkgName){
@@ -588,7 +669,7 @@ function showCelebration(pkgName){
 function closeCelebration(){
   const el=document.getElementById('celebration'); if(el) el.remove();
   S.pi = (S.pi+1) % C.packages.length;
-  S.brk = false; init();
+  S.brk = false; init(); saveLive();
 }
 
 // ══ DISPLAY ══
@@ -615,8 +696,13 @@ function upDots(){
     if(i<si)      { d.classList.add(t==='memo'?'dm':'dr'); d.innerHTML=svgIcon(t==='memo'?SVG_BOOK:SVG_EYE,10) }
     else if(i===si){ d.classList.add('act'); d.textContent=S.brk?'☕':(t==='memo'?'ح':'ق') }
     else           { d.textContent=t==='memo'?'ح':'ق' }
+    d.onclick=()=>jumpToSession(i);
     c.appendChild(d);
   });
+}
+function jumpToSession(i){
+  clearInterval(S.iv); S.run=false; setPI(false);
+  setPkgSI(i); S.brk=false; init(); scheduleSave(); saveLive();
 }
 
 function upPkg(){
@@ -646,7 +732,7 @@ function upPkg(){
 
 function jumpTo(i){
   clearInterval(S.iv); S.run=false; setPI(false);
-  S.pi=i; S.brk=false; init(); scheduleSave();
+  S.pi=i; S.brk=false; init(); scheduleSave(); saveLive();
 }
 
 function upSide(){
@@ -658,14 +744,36 @@ function upSide(){
   document.getElementById('sm2').textContent = ts.filter(s=>s.type==='memo').length;
 }
 
-// ══ STATS ══
+// ══ DASHBOARD / تتبّع البكجات ══
+function pkgEntries(p){
+  return S.log
+    .filter(s => (s.pkgId!=null && String(s.pkgId)===String(p.id)) || s.pkgName===p.name)
+    .sort((a,b)=> new Date(a.date)-new Date(b.date));
+}
+function pkgCompletions(p){
+  const e=pkgEntries(p); const len=p.sessions.length||1; const comps=[];
+  for(let i=len-1;i<e.length;i+=len) comps.push({date:e[i].date, count:len});
+  return comps;
+}
+function calcStreak(){
+  const days=new Set(S.log.map(s=>new Date(s.date).toDateString()));
+  let streak=0; const d=new Date();
+  if(!days.has(d.toDateString())) d.setDate(d.getDate()-1);
+  while(days.has(d.toDateString())){ streak++; d.setDate(d.getDate()-1); }
+  return streak;
+}
+function weekSessionsCount(){
+  const start=new Date(); start.setDate(start.getDate()-6); start.setHours(0,0,0,0);
+  return S.log.filter(s=> new Date(s.date)>=start).length;
+}
+
 function renderStats(){
-  const all=S.log;
-  document.getElementById('ts1').textContent = all.length;
-  document.getElementById('th').textContent  = Math.floor(all.reduce((a,s)=>a+s.duration,0)/60);
-  document.getElementById('tr2').textContent = all.filter(s=>s.type==='read').length;
-  document.getElementById('tm2').textContent = all.filter(s=>s.type==='memo').length;
-  renderWeekChart(); renderLog();
+  const totalComps = C.packages.reduce((a,p)=>a+pkgCompletions(p).length,0);
+  document.getElementById('st-comps').textContent  = totalComps;
+  document.getElementById('st-hours').textContent  = Math.floor(S.log.reduce((a,s)=>a+s.duration,0)/60);
+  document.getElementById('st-streak').textContent = calcStreak();
+  document.getElementById('st-week').textContent   = weekSessionsCount();
+  renderWeekChart(); renderDashboard();
 }
 
 function renderWeekChart(){
@@ -688,88 +796,58 @@ function renderWeekChart(){
   });
 }
 
-function setView(v,btn){
-  logView=v;
-  document.querySelectorAll('.vt').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('filter-row').style.display = v==='sessions'?'flex':'none';
-  renderLog();
-}
-function filterLog(t,b){
-  logFilter=t;
-  document.querySelectorAll('.fb').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active'); renderLog();
-}
-function renderLog(){
-  if(logView==='sessions') renderSessionsLog();
-  else renderPkgLog();
+function fmtDate(iso){
+  const d=new Date(iso);
+  return d.toLocaleDateString('ar-SA',{year:'numeric',month:'short',day:'numeric'})+' · '+d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'});
 }
 
-function renderSessionsLog(){
-  const c=document.getElementById('logc');
-  let sessions=[...S.log].reverse();
-  if(logFilter!=='all') sessions=sessions.filter(s=>s.type===logFilter);
-  if(!sessions.length){ c.innerHTML='<div class="el">لا توجد جلسات بعد</div>'; return }
-  const rows=sessions.slice(0,80).map(s=>{
-    const d=new Date(s.date);
-    const safeDate=s.date.replace(/'/g,"\\'");
-    return `<tr>
-      <td><span class="tp ${s.type==='read'?'ctr':'ctm'}">${s.type==='read'?'قراءة':'حفظ'}</span></td>
-      <td>${s.pkgName}</td>
-      <td>${s.duration} دقيقة</td>
-      <td style="color:var(--tx3)">${d.toLocaleDateString('ar-SA',{month:'short',day:'numeric'})}</td>
-      <td style="color:var(--tx3);font-family:var(--mn);font-size:11px">${d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'})}</td>
-      <td><button onclick="deleteSession('${safeDate}')" class="ib d" title="حذف">${svgIcon(SVG_TRASH,13)}</button></td>
-    </tr>`;
-  }).join('');
-  c.innerHTML=`<table class="ltbl"><thead><tr>
-    <th style="width:72px">النوع</th><th>البكج</th><th style="width:82px">المدة</th>
-    <th style="width:90px">التاريخ</th><th style="width:68px">الوقت</th><th style="width:36px"></th>
-  </tr></thead><tbody>${rows}</tbody></table>`;
-}
+function renderDashboard(){
+  const c=document.getElementById('dash'); c.innerHTML='';
+  if(!C.packages.length){ c.innerHTML='<div class="el">لا توجد بكجات</div>'; return; }
+  C.packages.forEach(p=>{
+    const e=pkgEntries(p);
+    const comps=pkgCompletions(p);
+    const len=p.sessions.length||1;
+    const liveSI=S.pkgStates[p.id]?.si||0;
+    const readC=e.filter(s=>s.type==='read').length;
+    const memoC=e.filter(s=>s.type==='memo').length;
+    const mins=e.reduce((a,s)=>a+s.duration,0);
+    const cyclePct=Math.round((liveSI/len)*100);
+    const compsHtml = comps.length
+      ? comps.slice().reverse().slice(0,12).map((cp,i)=>{
+          const n=comps.length-i;
+          return `<div class="dpk-comp"><div class="dpk-comp-i"><div class="dpk-comp-dot">${svgIcon(SVG_CHECK,11)}</div><span>الإتمام رقم ${n}</span></div><span class="dpk-comp-date">${fmtDate(cp.date)}</span></div>`;
+        }).join('')
+      : '<div class="dpk-empty">لم يكتمل هذا البكج بعد — أتمّ دورة كاملة ليظهر هنا بتاريخها</div>';
 
-function renderPkgLog(){
-  const c=document.getElementById('logc');
-  if(!S.log.length){ c.innerHTML='<div class="el">لا توجد جلسات بعد</div>'; return }
-  const pkgMap={};
-  S.log.forEach(s=>{
-    if(!pkgMap[s.pkgName]) pkgMap[s.pkgName]={name:s.pkgName,sessions:[],readCount:0,memoCount:0,totalMins:0};
-    pkgMap[s.pkgName].sessions.push(s);
-    if(s.type==='read') pkgMap[s.pkgName].readCount++;
-    else pkgMap[s.pkgName].memoCount++;
-    pkgMap[s.pkgName].totalMins+=s.duration;
-  });
-  const html=Object.values(pkgMap).map(pk=>{
-    const dots=pk.sessions.slice(-20).map(s=>`<div class="pls ${s.type==='read'?'r':'m'}">${s.type==='read'?'ق':'ح'}</div>`).join('');
-    const safeName=pk.name.replace(/'/g,"\\'");
-    return `<div class="pkg-log-card">
-      <div class="pkg-log-head">
-        <div class="pkg-log-name">${pk.name}</div>
-        <div class="pkg-log-stats">
-          <div class="pkg-log-stat" style="color:var(--gr)">📖 ${pk.readCount}</div>
-          <div class="pkg-log-stat" style="color:var(--bl)">📝 ${pk.memoCount}</div>
-          <div class="pkg-log-stat">⏱ ${pk.totalMins} د</div>
-          <button onclick="deletePkgLog('${safeName}')" class="ib d" title="حذف كل جلسات هذا البكج">${svgIcon(SVG_TRASH,13)}</button>
+    const card=document.createElement('div'); card.className='dpk';
+    card.innerHTML=`
+      <div class="dpk-head">
+        <span class="dpk-name">${p.name}</span>
+        <div class="dpk-rt">
+          <span class="dpk-badge">${comps.length} مرّة مكتملة</span>
+          <button class="ib d dpk-del" title="مسح سجل هذا البكج">${svgIcon(SVG_TRASH,13)}</button>
         </div>
       </div>
-      <div class="pkg-log-sessions">${dots}</div>
-    </div>`;
-  }).join('');
-  c.innerHTML=html;
+      <div class="dpk-meta">
+        <span style="color:var(--gr)">قراءة <b>${readC}</b></span>
+        <span style="color:var(--bl)">حفظ <b>${memoC}</b></span>
+        <span>الوقت <b>${mins}</b> د</span>
+        <span>الجلسات <b>${e.length}</b></span>
+      </div>
+      <div class="dpk-cyc"><span>الدورة الحالية</span><span><b style="font-family:var(--mn);color:var(--tx2)">${liveSI}/${len}</b></span></div>
+      <div class="dpk-bar"><div class="dpk-bar-fill" style="width:${cyclePct}%"></div></div>
+      <div class="dpk-comps"><div class="dpk-comps-h">سجل الإنجازات</div>${compsHtml}</div>`;
+    card.querySelector('.dpk-del').addEventListener('click',()=>clearPkgHistory(p.id,p.name));
+    c.appendChild(card);
+  });
 }
 
-// ══ الحذف ══
-function deleteSession(date){
-  if(!confirm('حذف هذه الجلسة؟')) return;
-  S.log = S.log.filter(s => s.date !== date);
-  scheduleSave(); renderLog(); upSide();
-  showToast('تم حذف الجلسة');
-}
-function deletePkgLog(name){
-  if(!confirm('حذف كل جلسات "'+name+'"؟')) return;
-  S.log = S.log.filter(s => s.pkgName !== name);
-  scheduleSave(); renderLog(); upSide();
-  showToast('تم حذف سجل البكج');
+function clearPkgHistory(id,name){
+  if(!confirm('مسح كل جلسات "'+name+'" من السجل؟ لا يمكن التراجع.')) return;
+  S.log = S.log.filter(s => !(String(s.pkgId)===String(id) || s.pkgName===name));
+  scheduleSave(); renderStats(); upPkg(); upSide();
+  showToast('تم مسح سجل البكج');
 }
 
 // ══ EXPORT ══
@@ -778,13 +856,88 @@ function exportExcel(){
   try{
     const data=S.log.map(s=>{
       const d=new Date(s.date);
-      return{'التاريخ':d.toLocaleDateString('ar-SA',{year:'numeric',month:'2-digit',day:'2-digit'}),'الوقت':d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'}),'النوع':s.type==='read'?'قراءة':'حفظ','البكج':s.pkgName,'المدة (دقيقة)':s.duration};
+      return{
+        'التاريخ':d.toLocaleDateString('ar-SA',{year:'numeric',month:'2-digit',day:'2-digit'}),
+        'الوقت':d.toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'}),
+        'النوع':s.type==='read'?'قراءة':'حفظ',
+        'البكج':s.pkgName,
+        'المدة (دقيقة)':s.duration,
+        'الطابع الزمني':s.date
+      };
     });
-    const ws=XLSX.utils.json_to_sheet(data); ws['!cols']=[{wch:14},{wch:10},{wch:10},{wch:22},{wch:14}];
+    const ws=XLSX.utils.json_to_sheet(data); ws['!cols']=[{wch:14},{wch:10},{wch:10},{wch:22},{wch:14},{wch:26}];
     const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'جلسات وِرد');
     XLSX.writeFile(wb,'wird_sessions_'+new Date().toISOString().slice(0,10)+'.xlsx');
     showToast('تم التصدير بنجاح ✓');
   }catch(e){ showToast('خطأ في التصدير') }
+}
+function exportBackup(){
+  try{
+    const payload={app:'wird',version:2,exportedAt:new Date().toISOString(),log:S.log,config:C,pkgStates:S.pkgStates,pi:S.pi};
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a');
+    a.href=url; a.download='wird_backup_'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    showToast('تم حفظ النسخة الاحتياطية ✓');
+  }catch(e){ showToast('خطأ في النسخ الاحتياطي') }
+}
+
+// ══ IMPORT (دمج — يضيف للبيانات الحالية ولا يستبدلها) ══
+function handleImportFile(ev){
+  const f=ev.target.files[0]; if(!f) return;
+  const ext=(f.name.split('.').pop()||'').toLowerCase();
+  const reader=new FileReader();
+  reader.onload=(e)=>{
+    try{
+      if(ext==='json'){ importJSON(JSON.parse(e.target.result)); }
+      else{
+        const wb=XLSX.read(e.target.result,{type:'array'});
+        const ws=wb.Sheets[wb.SheetNames[0]];
+        importRows(XLSX.utils.sheet_to_json(ws));
+      }
+    }catch(err){ console.error(err); showToast('تعذّر قراءة الملف'); }
+    ev.target.value='';
+  };
+  if(ext==='json') reader.readAsText(f); else reader.readAsArrayBuffer(f);
+}
+function logKey(e){ return e.date+'|'+(e.pkgId!=null?e.pkgId:e.pkgName)+'|'+e.type }
+function importJSON(d){
+  let added=0;
+  const pkgs = (d.config&&d.config.packages) || d.packages;
+  if(Array.isArray(pkgs)){
+    const ids=new Set(C.packages.map(p=>String(p.id)));
+    const names=new Set(C.packages.map(p=>p.name));
+    pkgs.forEach(p=>{ if(!ids.has(String(p.id)) && !names.has(p.name)){ C.packages.push(p); ids.add(String(p.id)); names.add(p.name); } });
+  }
+  if(Array.isArray(d.log)){
+    const ex=new Set(S.log.map(logKey));
+    d.log.forEach(en=>{ const k=logKey(en); if(!ex.has(k)){ S.log.push(en); ex.add(k); added++; } });
+  }
+  if(d.pkgStates){ Object.keys(d.pkgStates).forEach(id=>{ if(!S.pkgStates[id]) S.pkgStates[id]=d.pkgStates[id]; }); }
+  S.log.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  scheduleSave(); renderStats(); upPkg(); upSide();
+  showToast('تم الاستيراد ✓ ('+added+' جلسة جديدة)');
+}
+function importRows(rows){
+  let added=0;
+  const ex=new Set(S.log.map(logKey));
+  rows.forEach(r=>{
+    const pkgName=(r['البكج']||r['الباقة']||'مستورد').toString();
+    const type=(r['النوع']||'').toString().includes('حفظ')?'memo':'read';
+    const dur=parseInt(r['المدة (دقيقة)']||r['المدة']||0)||0;
+    let iso=(r['الطابع الزمني']||r['iso']||'').toString();
+    if(!iso){
+      const parsed=Date.parse((r['التاريخ']||'')+' '+(r['الوقت']||''));
+      iso = isNaN(parsed) ? new Date().toISOString() : new Date(parsed).toISOString();
+    }
+    const match=C.packages.find(p=>p.name===pkgName);
+    const entry={type, pkgName, pkgId: match?match.id:undefined, date:iso, duration:dur};
+    const k=logKey(entry);
+    if(!ex.has(k)){ S.log.push(entry); ex.add(k); added++; }
+  });
+  S.log.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  scheduleSave(); renderStats(); upPkg(); upSide();
+  showToast('تم الاستيراد ✓ ('+added+' جلسة)');
 }
 
 // ══ SETTINGS ══
@@ -823,7 +976,7 @@ function saveSettings(){
   C.autostart     = document.getElementById('ca').value;
   C.theme         = currentTheme;
   clearInterval(S.iv); S.run=false; setPI(false); S.brk=false;
-  init(); upPkg(); scheduleSave(); showToast('تم حفظ الإعدادات ✓');
+  init(); upPkg(); scheduleSave(); saveLive(); showToast('تم حفظ الإعدادات ✓');
 }
 
 function showToast(msg){
@@ -832,14 +985,25 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),2500);
 }
 
+// ══ إبقاء العداد دقيقًا عند العودة من الخلفية ══
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden && S.run){ tick(); } });
+window.addEventListener('focus',()=>{ if(S.run) tick(); });
+
 // ══ BOOT ══
 localLoad();
+if(S.pi>=C.packages.length) S.pi=0;
 if(C.theme){ currentTheme=C.theme; setTheme(C.theme) }
-init(); upPkg(); upSide();
+init();
+const resume = loadLive();
+if(S.pi>=C.packages.length) S.pi=0;
+upDisp(); upDots(); upPkg(); upSide();
+if(resume==='resume') startTimer();
 
 cloudLoad().then(()=>{
+  if(S.pi>=C.packages.length) S.pi=0;
   if(C.theme){ currentTheme=C.theme; setTheme(C.theme) }
-  init(); upPkg(); upSide();
+  if(!S.run) init();
+  upPkg(); upSide();
   localSave();
 });
 </script>
